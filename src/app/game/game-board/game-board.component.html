@@ -1,0 +1,16 @@
+<div class="GameBoard">
+  <game-layer
+    *ngFor="let layer of board; let i=index; trackBy: layerId"
+
+    [marked]="marked"
+    [layer]="layer"
+    [layerIndex]="i"
+    [visibleLayers]="visibleLayers"
+    [shouldAnimate]="shouldAnimate"
+
+    [style.top.px]="offsetForLayer(i)"
+    [style.left.px]="offsetForLayer(i)"
+
+    (mark)="onMark($event)"
+  ></game-layer>
+</div>

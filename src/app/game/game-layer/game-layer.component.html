@@ -1,0 +1,14 @@
+<game-row
+  *ngFor="let row of layer.rows; let i=index; trackBy: rowId"
+
+  [row]="row"
+  [layerIndex]="layerIndex"
+  [marked]="marked"
+  [shouldAnimate]="shouldAnimate"
+  [visibleLayers]="visibleLayers"
+
+  [style.top.px]="topForRow(i)"
+
+  (mark)="onMark($event)"
+>
+</game-row>

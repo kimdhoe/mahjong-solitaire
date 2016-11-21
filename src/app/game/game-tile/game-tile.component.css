@@ -1,0 +1,58 @@
+:host {
+  position: absolute;
+}
+
+.Tile {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-right: 0;
+  border-bottom: 0;
+  background-size: 90% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: white;
+  transition: background-color 80ms ease;
+}
+
+.Tile-eastSide, .Tile-southSide {
+  position: absolute;
+  box-sizing: border-box;
+  transform-origin: top left;
+  transition: background-color 80ms ease;
+}
+
+.isMarked .Tile-eastSide {
+  background-color: #5C480C;
+}
+
+.isMarked .Tile-southSide {
+  background-color: #8C7530;
+}
+
+.Tile-eastSide {
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  border-left: 1px solid #ccc;
+  width: 7px;
+  background-color: #555;
+  transform: skewY(45deg)
+}
+
+.Tile-southSide {
+  top: 100%;
+  right: 0;
+  left: 0;
+  border-top: 1px solid #ccc;
+  height: 7px;
+  background-color: #999;
+  transform: skewX(45deg)
+}
+
+.isOpen:hover {
+  cursor: pointer;
+}
+
+.isMarked {
+  background-color: #ffcc33;
+}

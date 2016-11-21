@@ -1,0 +1,11 @@
+<div class="Tile"
+  [ngClass]="{ 'isOpen': tile.isOpen, 'isMarked': isMarked() }"
+  [style.width.px]="width"
+  [style.height.px]="height"
+  [style.backgroundImage]="'url(assets/' + tile.name + '.png)'"
+
+  (click)="onClick()"
+>
+  <div class="Tile-eastSide"></div>
+  <div class="Tile-southSide"></div>
+</div>

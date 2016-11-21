@@ -1,0 +1,43 @@
+// Total 144 tiles = 36 * 4
+
+const NAMES = [ 'angular'
+              , 'babel'
+              , 'browserify'
+              , 'clojure'
+              , 'clojurescript'
+              , 'css'
+              , 'cyclejs'
+              , 'dart'
+              , 'electron'
+              , 'elm'
+              , 'ember'
+              , 'express'
+              , 'flow'
+              , 'haskell'
+              , 'javascript'
+              , 'koa'
+              , 'backbone'
+              , 'ngrx'
+              , 'nodejs'
+              , 'npm'
+              , 'polymer'
+              , 'postcss'
+              , 'purescript'
+              , 'racket'
+              , 'react'
+              , 'redux'
+              , 'redux-observable'
+              , 'reframe'
+              , 'riot'
+              , 'rxjs'
+              , 'sass'
+              , 'stack-overflow'
+              , 'typescript'
+              , 'vuejs'
+              , 'w3c'
+              , 'webpack'
+              ]
+
+const TILE_NAMES = [ ...NAMES, ...NAMES, ...NAMES, ...NAMES ]
+
+export default TILE_NAMES

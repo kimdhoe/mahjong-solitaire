@@ -1,0 +1,14 @@
+<game-tile
+  *ngFor="let tile of tiles(); trackBy: tileId"
+
+  [tile]="tile"
+  [marked]="marked"
+
+  [@fade]="shouldAnimate"
+
+  [style.left.px]="leftForTile(tile)"
+  [style.zIndex]="zIndexForTile(tile)"
+
+  (mark)="onMark($event)"
+>
+</game-tile>

@@ -1,0 +1,23 @@
+<div>
+  <game-control
+    [shouldAnimate]="shouldAnimate"
+    (redo)="onRedo()"
+    (undo)="onUndo()"
+    (shuffle)="onShuffle()"
+    (shuffleAtOnce)="onShuffleAtOnce()"
+    (toggleAnimation)="onToggleAnimation()"
+  >
+  </game-control>
+
+  <game-board
+    [board]="board"
+    [marked]="marked"
+    [shouldAnimate]="shouldAnimate"
+    [visibleLayers]="visibleLayers"
+    (mark)="onMark($event)"
+    >
+  </game-board>
+
+  <game-footer>
+  </game-footer>
+</div>

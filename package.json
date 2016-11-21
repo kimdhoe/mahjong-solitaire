@@ -26,8 +26,12 @@
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/effects": "^2.0.0",
+    "@ngrx/store": "^2.2.1",
     "@types/jasmine": "^2.2.30",
     "@types/node": "^6.0.42",
+    "@types/shortid": "0.0.28",
     "angular-cli": "1.0.0-beta.19-3",
     "codelyzer": "1.0.0-beta.1",
     "jasmine-core": "2.4.1",
@@ -38,6 +42,7 @@
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
     "protractor": "4.0.9",
+    "shortid": "^2.2.6",
     "ts-node": "1.2.1",
     "tslint": "3.13.0",
     "typescript": "~2.0.3",

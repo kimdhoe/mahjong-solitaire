@@ -1,0 +1,19 @@
+:host {
+  text-align: center;
+  font-family: monospace;
+}
+
+.GameFooter {
+  padding-top: 5em;
+}
+
+p {
+  margin-top: 0;
+}
+
+.tiles {
+  position: relative;
+  margin: 0 auto;
+  width: 450px;
+  height: 90px;
+}
