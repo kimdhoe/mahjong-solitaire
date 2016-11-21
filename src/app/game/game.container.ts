@@ -86,6 +86,7 @@ class GameContainer implements OnInit {
     this.store.dispatch(shuffle(board))
   }
 
+  // Dispatches SHUFFLE_AT_ONCE action.
   onShuffleAtOnce (): void {
     this.store.dispatch(shuffleAtOnce())
   }

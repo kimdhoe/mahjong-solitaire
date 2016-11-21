@@ -9,7 +9,7 @@ import { addTiles
 import { makeTable
        , Table
        , Tile
-       }          from '../model'
+       } from '../model'
 import { MARK_TILE
        , REDO
        , SET_BOARD
@@ -17,12 +17,12 @@ import { MARK_TILE
        , SHUFFLE_AT_ONCE
        , START_GAME
        , UNDO
-       }     from '../constants/action-names'
+       } from '../constants/action-names'
 
 const EMPTY: Table = makeTable()
 
 // Are the addresses of t1 and t2 the same?
-const addressEqual = (t1: Tile, t2: Tile): boolean => {
+const isSameTile = (t1: Tile, t2: Tile): boolean => {
   const [ i1, j1, k1 ] = t1.address
   const [ i2, j2, k2 ] = t2.address
 
@@ -41,7 +41,7 @@ const tableOnMarkTile = (table: Table, payload: any): Table => {
                     , table.timelineIndex
                     )
 
-  if (addressEqual(marked0, marked1))
+  if (isSameTile(marked0, marked1))
     return makeTable( table.board
                     , []
                     , table.removed
@@ -115,7 +115,8 @@ const table = (state: Table = EMPTY, action: Action): Table => {
     case SET_BOARD:
       return makeTable(action.payload.board)
 
-    default:         return state
+    default:
+      return state
   }
 }
 

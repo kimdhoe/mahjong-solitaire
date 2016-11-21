@@ -1,36 +1,37 @@
 import { generate } from 'shortid'
 
-interface World { table:         Table
-                  // Represents the informations regarding tiles and game play.
-                , visibleLayers: number
+interface World { // Represents the informations regarding tiles and game play.
+                  table: Table
+
                   // The number of layers that is visible at the moment.
                   //   - 0: Nothing should be visible.
                   //   - 1: Only the bototm layer should be evisible.
                   //   - ...
                   //   - 5: All layers should be visible.
-                , shouldAnimate: YesOrNo
+                , visibleLayers: number
+
                   // Turn on and off animation.
+                , shouldAnimate: YesOrNo
                 }
 
-interface Table { board:         Board
-                  // Represents the tiles.
-                , marked:        Array<Tile>
+interface Table { // Represents the tiles.
+                  board:         Board
                   // Marked (selected) tiles at the moment.
-                , removed:       Array<TilePair>
+                , marked:        Array<Tile>
                   // The history of removed tiles for undo/redo.
+                , removed:       Array<TilePair>
+                  // Keeps track of the current position in the undo history.
                 , timelineIndex: number
-                  // Keeps track of the current position in the
-                  // undo history.
                 }
 
 type Board = Array<Layer>
 
-interface Layer { id:     string
-                , rows:   Array<Row>
+interface Layer { id:   string
+                , rows: Array<Row>
                 }
 
-interface Row   { id:      string
-                , tiles:   Array<Tile>
+interface Row   { id:    string
+                , tiles: Array<Tile>
                 }
 
 interface Tile  { id:      string
@@ -44,11 +45,11 @@ type TilePair = [ Tile, Tile ]
 type YesOrNo = 'yes'
              | 'no'
 
-type TileName     = string
-type TileAddress  = [ LayerIndex, RowIndex, TileIndex ]
-type LayerIndex   = number   // Bottom-layer index is 0.
-type RowIndex     = number   // Leftmost-tile index is 0.
-type TileIndex    = number   // Top-row index is 0.
+type TileName    = string
+type TileAddress = [ LayerIndex, RowIndex, TileIndex ]
+type LayerIndex  = number   // Bottom-layer index is 0.
+type RowIndex    = number   // Leftmost-tile index is 0.
+type TileIndex   = number   // Top-row index is 0.
 
 type Template      = Array<LayerTemplate>
 type LayerTemplate = Array<RowTemplate>
