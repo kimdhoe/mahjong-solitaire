@@ -35,16 +35,16 @@ interface Commit { // !!! remove?
 
 interface Table { // On time travel, a set of tiles will be removed from
                   // a base board. Will only change on shuffling tiles.
-                  baseBoard:  Board
+                  baseBoard: Board
 
                   // Represents the tiles.
-                  board:         Board
+                  board:     Board
 
                   // Marked (selected) tiles at the moment.
-                , marked:        Array<Tile>
+                , marked:    Array<Tile>
 
                   // A revision tree.
-                , timeline: Timeline
+                , timeline:  Timeline
                 }
 
 type ShortID = string
@@ -84,7 +84,6 @@ type RowTemplate   = string
 //   - '-' represents the absence of a tile.
 //   - e.g. '--o-o-o-o-o-o-o-----'
 
-
 // Produces a layer.
 const makeLayer = ( rows: Row[], id: string = generate() ): Layer => (
   { rows, id }
@@ -103,7 +102,6 @@ const makeTile = ( name:     TileName    = ''
                  ) => (
   { name, isOpen, address, id }
 )
-
 
 const makeCommit = ( children: Commit[]
                    , diff:     TilePair
@@ -134,7 +132,6 @@ const makeTable = ( baseBoard: Board    = []
                   ): Table => (
   { baseBoard, board, marked, timeline }
 )
-
 
 // Are the addresses of t1 and t2 the same?
 const isSameTile = (t1: Tile, t2: Tile): boolean => {

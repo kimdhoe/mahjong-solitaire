@@ -8,7 +8,6 @@ import { SET_BOARD
        , TOGGLE_ANIMATION
        , SHUFFLE
        , SHUFFLE_AT_ONCE
-
        , TIME_TRAVEL
        } from './constants/action-names'
 import { Board
@@ -23,7 +22,7 @@ export const startGame = (): Action => (
 )
 
 export const setBoard = (board: Board): Action => (
-  { type: SET_BOARD
+  { type:    SET_BOARD
   , payload: { board }
   }
 )

@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store'
+import { Action }   from '@ngrx/store'
 import { generate } from 'shortid'
 
 import { addTiles
@@ -61,7 +61,7 @@ const tableOnMarkTile = (table: Table, payload: any): Table => {
 }
 
 // Given a table and a payload of SHUFFLE_AT_ONCE action, produces a new table.
-const tableOnShuffledAtOnce = (table: Table, payload: any): Table => {
+const tableOnShuffleAtOnce = (table: Table, payload: any): Table => {
   const shuffled = shuffleBoard(table.board)
 
   return makeTable(shuffled, shuffled)
@@ -93,7 +93,7 @@ const table = (state: Table = makeTable(), action: Action): Table => {
       return tableOnMarkTile(state, action.payload)
 
     case SHUFFLE_AT_ONCE:
-      return tableOnShuffledAtOnce(state, action.payload)
+      return tableOnShuffleAtOnce(state, action.payload)
 
     case SET_BOARD:
       return makeTable(action.payload.board, action.payload.board)

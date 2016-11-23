@@ -11,8 +11,7 @@ import 'rxjs/add/observable/timer'
 import 'rxjs/add/operator/mergeMap'
 import 'rxjs/add/operator/take'
 
-import { SET_BOARD
-       , SHUFFLE
+import { SHUFFLE
        }                from './constants/action-names'
 import { setBoard
        , removeLayer

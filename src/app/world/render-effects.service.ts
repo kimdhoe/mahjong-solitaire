@@ -4,15 +4,11 @@ import { Actions
        , Effect
        }              from '@ngrx/effects'
 import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/observable/interval'
-import 'rxjs/add/observable/of'
 import 'rxjs/add/observable/timer'
 import 'rxjs/add/operator/mergeMap'
 import 'rxjs/add/operator/take'
 
-import { RENDER_LAYER
-       , START_GAME
-       }               from './constants/action-names'
+import { START_GAME }  from './constants/action-names'
 import { renderLayer } from './actions'
 
 @Injectable()
