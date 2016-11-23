@@ -42,7 +42,6 @@ class Game {
   @Output() timeTravel      = new EventEmitter<Commit>()
 
   onMark (tile: Tile): void {
-    // this.mark.emit(tile)
     this.mark.emit({ tile, marked: this.marked })
   }
 
