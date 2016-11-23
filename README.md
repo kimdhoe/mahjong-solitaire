@@ -6,6 +6,10 @@ Angular를 바탕으로 만든 마작 솔리테어 게임입니다.
 열려있으려면 좌우 중 적어도 한 쪽이 막혀있지 않고, 위는 완전히 뚫려있어야
 합니다.
 
+[게임하기](https://kimdhoe.github.io/mahjong-solitaire/)
+
+https://kimdhoe.github.io/mahjong-solitaire/
+
 ## 특징
 
 ###  셔플(Shuffle)
