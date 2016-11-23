@@ -1,6 +1,6 @@
 <div class="GameControl">
-  <button (click)="shuffle.emit()">shuffle()</button>
+  <button (click)="shuffle.emit()">(shuffle!)</button>
   <button (click)="toggleAnimation.emit()">
-    turn_{{shouldAnimate === 'yes' ? 'off' : 'on'}}_animation()
+    (turn-{{shouldAnimate === 'yes' ? 'off' : 'on'}}-animation!)
   </button>
 </div>
