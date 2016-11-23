@@ -9,6 +9,7 @@ import reducers        from './world/reducers'
 import RenderEffects   from './world/render-effects.service'
 import RerenderEffects from './world/rerender-effects.service'
 import SoundEffects    from './world/sound-effects.service'
+import DealerService   from './dealer.service'
 
 @NgModule(
   { declarations: [ AppComponent ]
@@ -19,7 +20,7 @@ import SoundEffects    from './world/sound-effects.service'
                   , EffectsModule.run(RerenderEffects)
                   , EffectsModule.run(SoundEffects)
                   ]
-  , providers:    []
+  , providers:    [ DealerService ]
   , bootstrap:    [ AppComponent ]
   }
 )

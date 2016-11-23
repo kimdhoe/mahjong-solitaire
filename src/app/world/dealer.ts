@@ -91,7 +91,7 @@ const initLayer = ( lt:         LayerTemplate
   return makeLayer(rows)
 }
 
-// Given a whole template and tile names, initialized a board.
+// Given a whole template and tile names, initializes a board.
 const initBoard = (t: Template, names: TileName[]): Board =>
   t.map(// LayerTemplate * number -> Layer
         (lt, i) => initLayer(lt, i, names)

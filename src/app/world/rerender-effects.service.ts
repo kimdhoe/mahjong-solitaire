@@ -11,6 +11,7 @@ import 'rxjs/add/observable/timer'
 import 'rxjs/add/operator/mergeMap'
 import 'rxjs/add/operator/take'
 
+import DealerService    from '../dealer.service'
 import { SHUFFLE }      from './constants/action-names'
 import { setBoard
        , removeLayer
@@ -20,17 +21,22 @@ import { shuffleBoard } from './dealer'
 
 @Injectable()
 class RerenderEffects {
-  constructor (private action$: Actions) {}
+  constructor ( private action$: Actions
+              , private dealer:  DealerService
+              ) {}
 
   @Effect()
   shuffle$: Observable<Action> =
-    this.action$.ofType(SHUFFLE)
+    this.action$
+      .ofType(SHUFFLE)
       .mergeMap(({ payload: { board } }) =>
         Observable.concat(
-          Observable.timer(0, 200).take(5)
+          Observable.timer(0, 200)
+            .take(5)
             .map(() => removeLayer())
-        , Observable.of(setBoard(shuffleBoard(board)))
-        , Observable.interval(300).take(5)
+        , Observable.of(setBoard(this.dealer.shuffle(board)))
+        , Observable.interval(300)
+            .take(5)
             .map(() => renderLayer())
         )
       )
