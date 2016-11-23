@@ -8,8 +8,6 @@ import { ChangeDetectionStrategy
 import { Timeline
        , Commit
        } from '../../../world/model'
-const random = (n: number): number =>
-  Math.floor(Math.random() * (n + 1))
 
 @Component(
   { selector:        'game-commits'
@@ -21,25 +19,15 @@ const random = (n: number): number =>
 class GameCommits {
   @Input() commits: Commit[]
   @Input() current: Commit
-  @Input() bgcolor: string
 
   @Output() timeTravel = new EventEmitter<Commit>()
 
+  // Emits a timeTravel event loaded with a given commit.
   onTimeTravel (commit: Commit): void {
     this.timeTravel.emit(commit)
   }
 
-  randomColor (): string {
-    const digits = '0123456789ABCDEF'
-    let color = ''
-
-    for (let i = 0; i < 6; i++) {
-      color += digits[Math.floor(Math.random() * 16)]
-    }
-
-    return '#' + color
-  }
-
+  // Returns id of a given commit.
   commitId (i: number, commit: Commit): string {
     return commit.id
   }

@@ -49,7 +49,7 @@ export const shuffle = (board: Board): Action => (
 )
 
 export const shuffleAtOnce = (): Action => (
-  { type:    SHUFFLE_AT_ONCE }
+  { type: SHUFFLE_AT_ONCE }
 )
 
 export const toggleAnimation = (): Action => (

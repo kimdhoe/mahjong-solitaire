@@ -31,6 +31,9 @@ interface Commit { // !!! remove?
 
                    // The children represnt the next commits.
                  , children: Array<Commit>
+
+                   // Commits in a new branch will have a different color.
+                 , color:    string
                  }
 
 interface Table { // On time travel, a set of tiles will be removed from
@@ -84,6 +87,19 @@ type RowTemplate   = string
 //   - '-' represents the absence of a tile.
 //   - e.g. '--o-o-o-o-o-o-o-----'
 
+// Produces a random hex color code.
+const randomColor = (): string => {
+  const digits = '0123456789ABCDEF'
+
+  let code = '#'
+
+  for (let i = 0; i < 6; i++) {
+    code += digits[Math.floor(Math.random() * 16)]
+  }
+
+  return code
+}
+
 // Produces a layer.
 const makeLayer = ( rows: Row[], id: string = generate() ): Layer => (
   { rows, id }
@@ -103,17 +119,19 @@ const makeTile = ( name:     TileName    = ''
   { name, isOpen, address, id }
 )
 
+//.Produces
 const makeCommit = ( children: Commit[]
                    , diff:     TilePair
                    , parent?:  Commit
+                   , color:    string  = randomColor()
                    , id:       ShortID = generate()
                    ) => (
-  { diff, id, children, parent }
+  { diff, id, children, parent, color }
 )
 
-const snapshot0 = makeCommit([], null)
-const timeline0 = { head:    snapshot0
-                  , current: snapshot0
+const commit0   = makeCommit([], null)
+const timeline0 = { head:    commit0
+                  , current: commit0
                   }
 
 const makeTimeline = (): Timeline => {
@@ -172,7 +190,15 @@ const proceedTimeline = (removed: TilePair, timeline): Timeline => {
            , current: existingCommit
            }
 
-  const newCommit = makeCommit([], removed, timeline.current)
+  const { current } = timeline
+
+  const newCommit = makeCommit( []
+                              , removed
+                              , current
+                              , current.children.length > 0
+                                  ? randomColor()
+                                  : current.color
+                              )
 
   timeline.current.children.push(newCommit)
 

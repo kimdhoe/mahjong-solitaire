@@ -2,7 +2,7 @@
   <div class="Commit-box">
     <div class="Commit-point"
       [ngClass]="{ 'isCurrentPosition': isCurrentPosition() }"
-      [style.backgroundColor]="bgcolor"
+      [style.backgroundColor]="commit.color"
       (click)="onPointClick()"
     >
     </div>
@@ -12,7 +12,6 @@
     <game-commits
       [commits]="commit.children"
       [current]="current"
-      [bgcolor]="bgcolor"
       (timeTravel)="onTimeTravel($event)"
     >
     </game-commits>

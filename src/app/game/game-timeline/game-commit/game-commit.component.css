@@ -13,22 +13,28 @@
 }
 
 .Commit-point {
-  width: 8px;
-  height: 8px;
+  margin: 0px;
   border: 2px solid #fff;
   border-radius: 50%;
-  margin: 0px;
+  width: 8px;
+  height: 8px;
   background-color: #444;
   cursor: pointer;
+  transition: all 150ms ease;
 }
 
 .Commit-point:hover {
-  border-color: blue;
+  border-width: 0;
+  width: 12px;
+  height: 12px;
 }
 
-.isCurrentPosition {
-  background-color: green;
-  border-color: #000;
+.Commit-point.isCurrentPosition {
   margin: 0px;
+  width: 8px;
+  height: 8px;
+  border-width: 2px;
+  border-color: #000;
+  background-color: green;
   cursor: default;
 }

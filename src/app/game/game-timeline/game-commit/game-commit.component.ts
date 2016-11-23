@@ -18,7 +18,6 @@ import { Timeline
 class GameCommit {
   @Input() commit:  Commit
   @Input() current: Commit
-  @Input() bgcolor: string
 
   @Output() timeTravel = new EventEmitter<Commit>()
 

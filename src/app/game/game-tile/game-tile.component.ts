@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy
+       , Component
        , EventEmitter
+       , Input
        , OnInit
        , Output
-       } from '@angular/core'
-import { Component
-       , Input
        } from '@angular/core'
 
 import { Tile } from '../../world/model'
@@ -20,13 +19,13 @@ import { TILE_WIDTH
   }
 )
 class GameTile {
-  @Input() tile:     Tile
-  @Input() marked:   Tile[]
-
-  @Output() mark = new EventEmitter()
-
   width:  number = TILE_WIDTH
   height: number = TILE_HEIGHT
+
+  @Input() tile:   Tile
+  @Input() marked: Tile[]
+
+  @Output() mark = new EventEmitter()
 
   // Emits a MARK_TILE event loaded with a tile, only if it is open.
   onClick (): void {

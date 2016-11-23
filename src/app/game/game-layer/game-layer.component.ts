@@ -10,7 +10,7 @@ import { Layer
        , RowIndex
        , Tile
        , YesOrNo
-       }              from '../../world/model'
+       }               from '../../world/model'
 import { TILE_HEIGHT } from '../../world/constants/visual'
 
 @Component(
@@ -35,11 +35,11 @@ class GameLayer {
   }
 
   // Emits a mark event loaded with a given tile.
-  onMark (tile) {
+  onMark (tile): void {
     this.mark.emit(tile)
   }
 
-  // Calculates top position of i-th row.
+  // Calculates top position value (px) of i-th row.
   topForRow (i: RowIndex): number {
     return TILE_HEIGHT * i / 2
   }

@@ -1,4 +1,5 @@
-import { Component
+import { ChangeDetectionStrategy
+       , Component
        , EventEmitter
        , Input
        , Output
@@ -7,9 +8,10 @@ import { Component
 import { YesOrNo } from '../../world/model'
 
 @Component(
-  { selector:    'game-control'
-  , templateUrl: './game-control.component.html'
-  , styleUrls:   [ './game-control.component.css' ]
+  { selector:        'game-control'
+  , templateUrl:     './game-control.component.html'
+  , styleUrls:       [ './game-control.component.css' ]
+  , changeDetection: ChangeDetectionStrategy.OnPush
   }
 )
 class GameControl {

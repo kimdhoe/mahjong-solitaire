@@ -4,7 +4,6 @@
       *ngFor="let commit of commits; trackBy: commitId"
       [commit]="commit"
       [current]="current"
-      [bgcolor]="commits.length === 1 ? bgcolor : randomColor()"
       (timeTravel)="onTimeTravel($event)"
     >
     </game-commit>
