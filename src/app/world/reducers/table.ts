@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store'
+import { generate } from 'shortid'
 
 import { addTiles
        , newTurtleBoard
@@ -6,27 +7,26 @@ import { addTiles
        , shuffleBoard
        , updateOpenness
        } from '../dealer'
-import { makeTable
+import { isSameTile
+       , makeTable
        , Table
        , Tile
+       , proceedTimeline
+       , collectRemovedTiles
        } from '../model'
 import { MARK_TILE
-       , REDO
        , SET_BOARD
        , SHUFFLE
        , SHUFFLE_AT_ONCE
        , START_GAME
-       , UNDO
+       , TIME_TRAVEL
        } from '../constants/action-names'
 
-const EMPTY: Table = makeTable()
+// Produces a new table.
+const tableOnStartGame = (): Table => {
+  const baseBoard = newTurtleBoard()
 
-// Are the addresses of t1 and t2 the same?
-const isSameTile = (t1: Tile, t2: Tile): boolean => {
-  const [ i1, j1, k1 ] = t1.address
-  const [ i2, j2, k2 ] = t2.address
-
-  return i1 === i2 && j1 === j2 && k1 === k2
+  return makeTable(baseBoard, baseBoard)
 }
 
 // Given a table and a payload of MARK_TILE action, produces a new table.
@@ -35,85 +35,71 @@ const tableOnMarkTile = (table: Table, payload: any): Table => {
   const marked1 = payload.tile
 
   if (!marked0)
-    return makeTable( table.board
+    return makeTable( table.baseBoard
+                    , table.board
                     , [ payload.tile ]
-                    , table.removed
-                    , table.timelineIndex
+                    , table.timeline
                     )
 
   if (isSameTile(marked0, marked1))
-    return makeTable( table.board
+    return makeTable( table.baseBoard
+                    , table.board
                     , []
-                    , table.removed
-                    , table.timelineIndex
+                    , table.timeline
                     )
 
   if (marked0.name === marked1.name)
-    return makeTable( updateOpenness(
+    return makeTable( table.baseBoard
+                    , updateOpenness(
                         removeTiles([ marked0, marked1 ], table.board)
                       )
                     , []
-                    , [ [ marked0, marked1 ]
-                      , ...table.removed.slice(table.timelineIndex + 1)
-                      ]
-                    , -1
+                    , proceedTimeline([ marked0, marked1 ], table.timeline)
                     )
 
   return table
 }
 
-// Applies UNDO to a given table.
-const tableOnUndo = (table: Table): Table => {
-  if (table.timelineIndex + 1 >= table.removed.length)
-    return table
+// Given a table and a payload of SHUFFLE_AT_ONCE action, produces a new table.
+const tableOnShuffledAtOnce = (table: Table, payload: any): Table => {
+  const shuffled = shuffleBoard(table.board)
 
-  return makeTable( updateOpenness(
-                      addTiles(table.removed[table.timelineIndex + 1]
-                              , table.board
-                              )
-                    )
-                  , []
-                  , table.removed
-                  , table.timelineIndex + 1
-                  )
+  return makeTable(shuffled, shuffled)
 }
 
-// Applies REDO to a given table.
-const tableOnRedo = (table: Table): Table => {
-  if (table.timelineIndex < 0)
-    return table
+// Given a table and a payload of TIME_TRAVEL action, produces a new table.
+const tableOnTimeTravel = (table: Table, payload: any): Table => {
+  const removedTiles    = collectRemovedTiles(payload.target)
+  const boardInTimeline = updateOpenness(
+                            removeTiles(removedTiles, table.baseBoard)
+                          )
 
-  return makeTable( updateOpenness(
-                      removeTiles(table.removed[table.timelineIndex]
-                                  , table.board
-                                  )
-                    )
+  return makeTable( table.baseBoard
+                  , boardInTimeline
                   , []
-                  , table.removed
-                  , table.timelineIndex - 1
+                  , { head:    table.timeline.head
+                    , current: payload.target
+                    }
                   )
 }
 
 // Table reducer.
-const table = (state: Table = EMPTY, action: Action): Table => {
+const table = (state: Table = makeTable(), action: Action): Table => {
   switch (action.type) {
     case START_GAME:
-      return makeTable(newTurtleBoard())
+      return tableOnStartGame()
 
     case MARK_TILE:
       return tableOnMarkTile(state, action.payload)
 
-    case UNDO:
-      return tableOnUndo(state)
-
-    case REDO:
-      return tableOnRedo(state)
-
     case SHUFFLE_AT_ONCE:
-      return makeTable(shuffleBoard(state.board))
+      return tableOnShuffledAtOnce(state, action.payload)
 
     case SET_BOARD:
-      return makeTable(action.payload.board)
+      return makeTable(action.payload.board, action.payload.board)
+
+    case TIME_TRAVEL:
+      return tableOnTimeTravel(state, action.payload)
 
     default:
       return state

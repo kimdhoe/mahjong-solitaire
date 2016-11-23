@@ -1,0 +1,34 @@
+.Commit {
+  display: table;
+}
+
+.Commit-box {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.Commits-box {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.Commit-point {
+  width: 8px;
+  height: 8px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  margin: 0px;
+  background-color: #444;
+  cursor: pointer;
+}
+
+.Commit-point:hover {
+  border-color: blue;
+}
+
+.isCurrentPosition {
+  background-color: green;
+  border-color: #000;
+  margin: 0px;
+  cursor: default;
+}

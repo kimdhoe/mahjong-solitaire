@@ -15,8 +15,6 @@ import { YesOrNo } from '../../world/model'
 class GameControl {
   @Input() shouldAnimate: YesOrNo
 
-  @Output() undo            = new EventEmitter()
-  @Output() redo            = new EventEmitter()
   @Output() shuffle         = new EventEmitter()
   @Output() toggleAnimation = new EventEmitter()
 }

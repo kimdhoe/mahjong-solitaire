@@ -12,15 +12,13 @@ import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 
 import { Board
-       , Table
        , Tile
-       , World
        , YesOrNo
+       , Commit
+       , Timeline
        } from '../world/model'
 import { markTile
        , startGame
-       , redo
-       , undo
        } from '../world/actions'
 
 @Component(
@@ -35,22 +33,17 @@ class Game {
   @Input() shouldAnimate: YesOrNo
   @Input() visibleLayers: number
 
-  @Output() mark            = new EventEmitter<Tile>()
-  @Output() redo            = new EventEmitter()
-  @Output() undo            = new EventEmitter()
+  @Input() timeline: Timeline
+
+  @Output() mark            = new EventEmitter()
   @Output() shuffle         = new EventEmitter<Board>()
   @Output() shuffleAtOnce   = new EventEmitter<Board>()
   @Output() toggleAnimation = new EventEmitter()
+  @Output() timeTravel      = new EventEmitter<Commit>()
 
   onMark (tile: Tile): void {
-    this.mark.emit(tile) }
-
-  onRedo (): void {
-    this.redo.emit()
-  }
-
-  onUndo (): void {
-    this.undo.emit()
+    // this.mark.emit(tile)
+    this.mark.emit({ tile, marked: this.marked })
   }
 
   onShuffle (): void {
@@ -62,6 +55,10 @@ class Game {
 
   onToggleAnimation (): void {
     this.toggleAnimation.emit()
+  }
+
+  onTimeTravel (commit: Commit): void {
+    this.timeTravel.emit(commit)
   }
 }
 

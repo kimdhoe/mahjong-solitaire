@@ -3,16 +3,19 @@ import { Action } from '@ngrx/store'
 import { SET_BOARD
        , START_GAME
        , MARK_TILE
-       , REDO
        , REMOVE_LAYER
        , RENDER_LAYER
        , TOGGLE_ANIMATION
        , SHUFFLE
        , SHUFFLE_AT_ONCE
-       , UNDO
+
+       , TIME_TRAVEL
        } from './constants/action-names'
 import { Board
        , Tile
+       , TilePair
+       , ShortID
+       , Commit
        } from './model'
 
 export const startGame = (): Action => (
@@ -34,18 +37,10 @@ export const renderLayer = (): Action => (
   }
 )
 
-export const markTile = (tile: Tile): Action => (
-  { type:    MARK_TILE
-  , payload: { tile }
+export const markTile = payload => (
+  { type: MARK_TILE
+  , payload
   }
-)
-
-export const undo = (): Action => (
-  { type: UNDO }
-)
-
-export const redo = (): Action => (
-  { type: REDO }
 )
 
 export const shuffle = (board: Board): Action => (
@@ -60,4 +55,10 @@ export const shuffleAtOnce = (): Action => (
 
 export const toggleAnimation = (): Action => (
   { type: TOGGLE_ANIMATION }
+)
+
+export const timeTravel = (target: Commit): Action => (
+  { type:    TIME_TRAVEL
+  , payload: { target }
+  }
 )

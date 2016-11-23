@@ -1,0 +1,10 @@
+<div class="Timeline">
+  <game-commits
+    [commits]="[timeline.head]"
+    [current]="timeline.current"
+    [bgcolor]="'#444'"
+
+    (timeTravel)="onTimeTravel($event)"
+  >
+  </game-commits>
+</div>

@@ -9,6 +9,9 @@ import GameRow       from './game-row/game-row.component'
 import GameTile      from './game-tile/game-tile.component'
 import GameControl   from './game-control/game-control.component'
 import GameFooter    from './game-footer/game-footer.component'
+import GameTimeline  from './game-timeline/game-timeline.component'
+import GameCommit    from './game-timeline/game-commit/game-commit.component'
+import GameCommits   from './game-timeline/game-commits/game-commits.component'
 
 @NgModule(
   { imports:      [ CommonModule ]
@@ -20,6 +23,9 @@ import GameFooter    from './game-footer/game-footer.component'
                   , GameLayer
                   , GameRow
                   , GameTile
+                  , GameTimeline
+                  , GameCommit
+                  , GameCommits
                   ]
   , exports:      [ GameContainer ]
   }

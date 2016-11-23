@@ -14,15 +14,40 @@ interface World { // Represents the informations regarding tiles and game play.
                 , shouldAnimate: YesOrNo
                 }
 
-interface Table { // Represents the tiles.
+interface Timeline { head:    Commit
+                   , current: Commit
+                   }
+
+interface Commit { // !!! remove?
+                   id:       ShortID
+
+                   // A commit is created when a pair of tiles are removed.
+                   //   - A root commit is clean.
+                 , diff?:    TilePair
+
+                   // A parent represnts the previous commit.
+                   //   - The root has no parent.
+                 , parent?:  Commit
+
+                   // The children represnt the next commits.
+                 , children: Array<Commit>
+                 }
+
+interface Table { // On time travel, a set of tiles will be removed from
+                  // a base board. Will only change on shuffling tiles.
+                  baseBoard:  Board
+
+                  // Represents the tiles.
                   board:         Board
+
                   // Marked (selected) tiles at the moment.
                 , marked:        Array<Tile>
-                  // The history of removed tiles for undo/redo.
-                , removed:       Array<TilePair>
-                  // Keeps track of the current position in the undo history.
-                , timelineIndex: number
+
+                  // A revision tree.
+                , timeline: Timeline
                 }
+
+type ShortID = string
 
 type Board = Array<Layer>
 
@@ -79,32 +104,126 @@ const makeTile = ( name:     TileName    = ''
   { name, isOpen, address, id }
 )
 
-// Produces a table.
-const makeTable = ( board:         Board      = []
-                  , marked:        Tile[]     = []
-                  , removed:       TilePair[] = []
-                  , timelineIndex: number     = -1
-                  ): Table => (
-  { board, marked, removed, timelineIndex }
+
+const makeCommit = ( children: Commit[]
+                   , diff:     TilePair
+                   , parent?:  Commit
+                   , id:       ShortID = generate()
+                   ) => (
+  { diff, id, children, parent }
 )
 
+const snapshot0 = makeCommit([], null)
+const timeline0 = { head:    snapshot0
+                  , current: snapshot0
+                  }
+
+const makeTimeline = (): Timeline => {
+  const head = makeCommit([], null)
+
+  return { head
+         , current: head
+         }
+}
+
+// Produces a table.
+const makeTable = ( baseBoard: Board    = []
+                  , board:     Board    = []
+                  , marked:    Tile[]   = []
+                  , timeline:  Timeline = makeTimeline()
+                  ): Table => (
+  { baseBoard, board, marked, timeline }
+)
+
+
+// Are the addresses of t1 and t2 the same?
+const isSameTile = (t1: Tile, t2: Tile): boolean => {
+  const [ i1, j1, k1 ] = t1.address
+  const [ i2, j2, k2 ] = t2.address
+
+  return i1 === i2 && j1 === j2 && k1 === k2
+}
+
+// Are t1 and t2 matching tiles?
+const areMatchingTiles = (t1: Tile, t2: Tile): boolean =>
+     t1.name === t2.name
+  && !isSameTile(t1, t2)
+
+// Are the given two pairs of tiles the same?
+const isSamePair = ([ t1, t2 ]: TilePair, [ t3, t4 ]: TilePair): boolean =>
+     (isSameTile(t1, t3) && isSameTile(t2, t4))
+  || (isSameTile(t1, t4) && isSameTile(t2, t3))
+
+// Finds a commit for removed in commits.
+// If there isn't, returns null.
+const findCommit = (removed: TilePair, commits: Commit[]): Commit => {
+  for (let i = 0; i < commits.length; i++) {
+    if (isSamePair(commits[i].diff, removed))
+      return commits[i]
+  }
+
+  return null
+}
+
+// Given a pair of removed tiles, proceeds a given timeline
+// by inserting a new commit or changing current commit.
+const proceedTimeline = (removed: TilePair, timeline): Timeline => {
+  const existingCommit = findCommit(removed, timeline.current.children)
+
+  if (existingCommit)
+    return { head:    timeline.head
+           , current: existingCommit
+           }
+
+  const newCommit = makeCommit([], removed, timeline.current)
+
+  timeline.current.children.push(newCommit)
+
+  return { head:    timeline.head
+         , current: newCommit
+         }
+}
+
+// Collects all tiles removed since the beginning of timeline.
+const collectRemovedTiles = (commit: Commit): Tile[] => {
+  const removed = []
+
+  if (commit.diff)
+    removed.push(...commit.diff)
+
+  while (commit.parent) {
+    commit = commit.parent
+
+    removed.push(...commit.diff)
+  }
+
+  return removed
+}
+
 export { Board
+       , collectRemovedTiles
+       , Commit
+       , isSameTile
        , makeLayer
        , makeRow
        , makeTable
        , makeTile
+       , proceedTimeline
+       , Row
+       , RowIndex
+       , RowTemplate
+       , ShortID
        , Table
        , Template
        , Tile
        , TileAddress
        , TileIndex
        , TileName
+       , TilePair
+       , Timeline
        , Layer
        , LayerIndex
        , LayerTemplate
-       , Row
-       , RowIndex
-       , RowTemplate
        , World
        , YesOrNo
        }

@@ -1,8 +1,6 @@
 <div>
   <game-control
     [shouldAnimate]="shouldAnimate"
-    (redo)="onRedo()"
-    (undo)="onUndo()"
     (shuffle)="onShuffle()"
     (shuffleAtOnce)="onShuffleAtOnce()"
     (toggleAnimation)="onToggleAnimation()"
@@ -17,6 +15,12 @@
     (mark)="onMark($event)"
     >
   </game-board>
+
+  <game-timeline
+    [timeline]="timeline"
+    (timeTravel)="onTimeTravel($event)"
+  >
+  </game-timeline>
 
   <game-footer>
   </game-footer>
