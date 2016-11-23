@@ -200,7 +200,8 @@ const collectRemovedTiles = (commit: Commit): Tile[] => {
   return removed
 }
 
-export { Board
+export { areMatchingTiles
+       , Board
        , collectRemovedTiles
        , Commit
        , isSameTile

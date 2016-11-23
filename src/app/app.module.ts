@@ -8,6 +8,7 @@ import GameModule      from './game/game.module'
 import reducers        from './world/reducers'
 import RenderEffects   from './world/render-effects.service'
 import RerenderEffects from './world/rerender-effects.service'
+import SoundEffects    from './world/sound-effects.service'
 
 @NgModule(
   { declarations: [ AppComponent ]
@@ -16,6 +17,7 @@ import RerenderEffects from './world/rerender-effects.service'
                   , StoreModule.provideStore(reducers)
                   , EffectsModule.run(RenderEffects)
                   , EffectsModule.run(RerenderEffects)
+                  , EffectsModule.run(SoundEffects)
                   ]
   , providers:    []
   , bootstrap:    [ AppComponent ]

@@ -45,7 +45,7 @@ const tableOnMarkTile = (table: Table, payload: any): Table => {
     return makeTable( table.baseBoard
                     , table.board
                     , []
-                    , table.timeline
+                   , table.timeline
                     )
 
   if (marked0.name === marked1.name)
