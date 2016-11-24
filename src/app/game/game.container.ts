@@ -9,6 +9,8 @@ import 'rxjs/add/observable/combineLatest'
 import 'rxjs/add/operator/last'
 import 'rxjs/add/operator/map'
 
+import 'rxjs/add/operator/distinctUntilChanged'
+
 import { Board
        , Commit
        , Table
@@ -70,6 +72,15 @@ class GameContainer implements OnInit {
 
   ngOnInit (): void {
     this.store.dispatch(startGame())
+
+    // !!!
+    // Local storage
+    // Save board and timeline state.
+    // Seems to be sufficient to listen for timeline changes and nothing else.
+    this.timeline$.distinctUntilChanged()
+      .subscribe(x => {
+        console.log('Save board and timeline state.')
+      })
   }
 
   onStartOver (): void {
