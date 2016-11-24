@@ -1,6 +1,6 @@
 import { NgModule }     from '@angular/core'
-import { CommonModule } from '@angular/common'
 
+import SharedModule  from '../shared/shared.module'
 import GameContainer from './game.container'
 import Game          from './game.component'
 import GameBoard     from './game-board/game-board.component'
@@ -14,7 +14,7 @@ import GameCommit    from './game-timeline/game-commit/game-commit.component'
 import GameCommits   from './game-timeline/game-commits/game-commits.component'
 
 @NgModule(
-  { imports:      [ CommonModule ]
+  { imports:      [ SharedModule ]
   , declarations: [ Game
                   , GameBoard
                   , GameContainer

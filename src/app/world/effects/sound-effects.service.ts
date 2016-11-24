@@ -6,15 +6,15 @@ import { Actions
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/do'
 
-import { MARK_TILE }        from './constants/action-names'
-import { areMatchingTiles } from './model'
+import { MARK_TILE }        from '../constants/action-names'
+import { areMatchingTiles } from '../model'
 
 @Injectable()
 class SoundEffects {
-  keyboard: HTMLAudioElement
+  keyboardSound: HTMLAudioElement
 
   constructor (private action$: Actions) {
-    this.keyboard = new Audio('assets/key.wav')
+    this.keyboardSound = new Audio('assets/key.wav')
   }
 
   @Effect({ dispatch: false })
@@ -22,10 +22,9 @@ class SoundEffects {
     this.action$
       .ofType(MARK_TILE)
       .do(action => {
-        if (  action.payload.marked[0]
-           && areMatchingTiles(action.payload.tile, action.payload.marked[0])
-           )
-          this.keyboard.play()
+            action.payload.marked[0]
+         && areMatchingTiles(action.payload.tile, action.payload.marked[0])
+         && this.keyboardSound.play()
       })
 }
 

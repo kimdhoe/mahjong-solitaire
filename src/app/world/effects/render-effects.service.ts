@@ -11,21 +11,32 @@ import 'rxjs/add/observable/timer'
 import 'rxjs/add/operator/mergeMap'
 import 'rxjs/add/operator/take'
 
-import DealerService    from '../core/dealer.service'
-import { SHUFFLE
+import { START_GAME
+       , SHUFFLE
        , START_OVER
-       }                from './constants/action-names'
+       }                from '../constants/action-names'
 import { setBoard
        , removeLayer
        , renderLayer
-       }                from './actions'
-import { shuffleBoard } from './dealer'
+       }                from '../actions'
+import { shuffleBoard } from '../dealer'
+import DealerService    from '../../core/dealer.service'
 
 @Injectable()
-class RerenderEffects {
+class RenderEffects {
   constructor ( private action$: Actions
               , private dealer:  DealerService
               ) {}
+
+  @Effect()
+  startGame$: Observable<Action> =
+    this.action$
+      .ofType(START_GAME)
+      .mergeMap(() =>
+        Observable.timer(0, 300)
+          .take(5)  // Assume there are always 5 layers.
+          .map(() => renderLayer())
+      )
 
   @Effect()
   shuffle$: Observable<Action> =
@@ -33,15 +44,15 @@ class RerenderEffects {
       .ofType(SHUFFLE)
       .mergeMap(({ payload: { board } }) =>
         Observable.of(this.dealer.shuffle(board))
-          .mergeMap(p =>
+          .mergeMap(promise =>
             Observable.concat(
               Observable.timer(0, 200)
                 .take(5)
-                .map(() => removeLayer())
-            , p.then(setBoard)
+                .map(removeLayer)
+            , promise.then(setBoard)
             , Observable.interval(300)
                 .take(5)
-                .map(() => renderLayer())
+                .map(renderLayer)
             )
           )
       )
@@ -52,18 +63,18 @@ class RerenderEffects {
       .ofType(START_OVER)
       .mergeMap(() =>
         Observable.of(this.dealer.newTurtleBoard())
-          .mergeMap(p =>
+          .mergeMap(promise =>
             Observable.concat(
               Observable.timer(0, 200)
                 .take(5)
-                .map(() => removeLayer())
-            , p.then(setBoard)
+                .map(removeLayer)
+            , promise.then(setBoard)
             , Observable.timer(0, 300)
                 .take(5)
-                .map(() => renderLayer())
+                .map(renderLayer)
             )
           )
       )
 }
 
-export default RerenderEffects
+export default RenderEffects
