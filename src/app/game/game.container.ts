@@ -20,14 +20,7 @@ import { Board
        , Timeline
        }                from '../world/model'
 import { shuffleBoard } from '../world/dealer'
-import { markTile
-       , shuffle
-       , shuffleAtOnce
-       , startGame
-       , startOver
-       , toggleAnimation
-       , timeTravel
-       }                from '../world/actions'
+import * as act         from '../world/actions'
 
 @Component(
   { selector: 'game-container'
@@ -71,44 +64,45 @@ class GameContainer implements OnInit {
   }
 
   ngOnInit (): void {
-    this.store.dispatch(startGame())
+    this.store.dispatch(act.startGame())
 
     // !!!
-    // Local storage
+    // Local storage?
     // Save board and timeline state.
     // Seems to be sufficient to listen for timeline changes and nothing else.
-    this.timeline$.distinctUntilChanged()
+    this.timeline$
+      .distinctUntilChanged()
       .subscribe(x => {
         console.log('Save board and timeline state.')
       })
   }
 
   onStartOver (): void {
-    this.store.dispatch(startOver())
+    this.store.dispatch(act.startOver())
   }
 
   onStartOverAtOnce (): void {
-    this.store.dispatch(startGame())
+    this.store.dispatch(act.startGame())
   }
 
-  onMark (payload: any): void {
-    this.store.dispatch(markTile(payload))
+  onMark ({ tile, marked }): void {
+    this.store.dispatch(act.markTile(tile, marked))
   }
 
   onShuffle (board: Board): void {
-    this.store.dispatch(shuffle(board))
+    this.store.dispatch(act.shuffle(board))
   }
 
   onShuffleAtOnce (): void {
-    this.store.dispatch(shuffleAtOnce())
+    this.store.dispatch(act.shuffleAtOnce())
   }
 
   onToggleAnimation (): void {
-    this.store.dispatch(toggleAnimation())
+    this.store.dispatch(act.toggleAnimation())
   }
 
   onTimeTravel (commit: Commit): void {
-    this.store.dispatch(timeTravel(commit))
+    this.store.dispatch(act.timeTravel(commit))
   }
 }
 

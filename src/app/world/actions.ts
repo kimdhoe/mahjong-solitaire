@@ -37,9 +37,9 @@ export const renderLayer = (): Action => (
   }
 )
 
-export const markTile = payload => (
+export const markTile = (tile: Tile, marked: Tile[]): Action => (
   { type: MARK_TILE
-  , payload
+  , payload: { tile, marked }
   }
 )
 
