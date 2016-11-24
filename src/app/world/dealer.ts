@@ -15,38 +15,11 @@ import { Board
        , Template
        , Tile
        , TileIndex
-       , TileName
        , TileAddress
        } from './model'
+import { shuffle } from '../util'
 
 const TILE_PLACEHOLDER = makeTile('')
-
-// -----------------------------------------------------------------------------
-
-// Produces a random integer[0, n].
-// effect
-const random = (n: number): number =>
-  Math.floor(Math.random() * (n + 1))
-
-// Inserts x into xs.
-// effect: The position of x is determined by Math.random.
-const insert = <X> (x: X, xs: Array<X>): Array<X> => {
-  const i = random(xs.length)
-
-  return [ ...xs.slice(0, i)
-         , x
-         , ...xs.slice(i)
-         ]
-}
-
-// Given an array, produces a shuffled array.
-// effect
-const shuffle = <X> (xs: Array<X>): Array<X> =>
-  xs.length <= 1
-    ? xs
-    : insert(xs[0], shuffle(xs.slice(1)))
-
-// -----------------------------------------------------------------------------
 
 // Given a row template and tile names, initializes a row.
 //   - All tiles are closed (not selectable) by default.
@@ -54,7 +27,7 @@ const shuffle = <X> (xs: Array<X>): Array<X> =>
 const initRow = ( rt:         RowTemplate
                 , layerIndex: LayerIndex
                 , rowIndex:   RowIndex
-                , names:      Array<TileName>
+                , names:      Array<string>
                 ): Row => {
   const tiles: Tile[] = []
 
@@ -82,7 +55,7 @@ const initRow = ( rt:         RowTemplate
 // Given a layer template and tile names, initialized a layer.
 const initLayer = ( lt:         LayerTemplate
                   , layerIndex: LayerIndex
-                  , names:      TileName[]
+                  , names:      string[]
                   ): Layer => {
   const rows = lt.map(// RowTemplate * number -> Row
                       (rt, i) => initRow(rt, layerIndex, i, names)
@@ -92,7 +65,7 @@ const initLayer = ( lt:         LayerTemplate
 }
 
 // Given a whole template and tile names, initializes a board.
-const initBoard = (t: Template, names: TileName[]): Board =>
+const initBoard = (t: Template, names: string[]): Board =>
   t.map(// LayerTemplate * number -> Layer
         (lt, i) => initLayer(lt, i, names)
        )
@@ -262,27 +235,27 @@ const addTiles = (tiles: Tile[], board: Board): Board =>
               )
 
 // Collects tile names from row.
-const gatherNamesFromRow = (row: Row): TileName[] =>
+const gatherNamesFromRow = (row: Row): string[] =>
   row.tiles.reduce(
-    (acc: TileName[], tile: Tile) => tile.name
+    (acc: string[], tile: Tile) => tile.name
                                        ? [ ...acc, tile.name ]
                                        : acc
   , []
   )
 
 // Collects tile names from layer.
-const gatherNamesFromLayer = (layer: Layer): TileName[] =>
+const gatherNamesFromLayer = (layer: Layer): string[] =>
   layer.rows.reduce(
-    (acc: TileName[], row: Row) => [ ...acc
+    (acc: string[], row: Row) => [ ...acc
                                    , ...gatherNamesFromRow(row)
                                    ]
   , []
   )
 
 // Collects tile names from board.
-const gatherNames = (board: Board): TileName[] =>
+const gatherNames = (board: Board): string[] =>
   board.reduce(
-    (acc: TileName[], layer: Layer) => [ ...acc
+    (acc: string[], layer: Layer) => [ ...acc
                                        , ...gatherNamesFromLayer(layer)
                                        ]
   , []

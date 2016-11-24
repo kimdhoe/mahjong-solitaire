@@ -15,7 +15,6 @@ import { SET_BOARD
 import { Board
        , Tile
        , TilePair
-       , ShortID
        , Commit
        } from './model'
 

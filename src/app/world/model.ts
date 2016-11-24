@@ -1,5 +1,7 @@
 import { generate } from 'shortid'
 
+import { randomColor } from '../util'
+
 interface World { // Represents the informations regarding tiles and game play.
                   table: Table
 
@@ -14,12 +16,14 @@ interface World { // Represents the informations regarding tiles and game play.
                 , shouldAnimate: YesOrNo
                 }
 
-interface Timeline { head:    Commit
+interface Timeline { // A head of a timeline tree.
+                     head:    Commit
+
+                     // A commit that represents current state.
                    , current: Commit
                    }
 
-interface Commit { // !!! remove?
-                   id:       ShortID
+interface Commit { id:       string
 
                    // A commit is created when a pair of tiles are removed.
                    //   - A root commit is clean.
@@ -50,8 +54,6 @@ interface Table { // On time travel, a set of tiles will be removed from
                 , timeline:  Timeline
                 }
 
-type ShortID = string
-
 type Board = Array<Layer>
 
 interface Layer { id:   string
@@ -63,7 +65,7 @@ interface Row   { id:    string
                 }
 
 interface Tile  { id:      string
-                , name:    TileName
+                , name:    string
                 , isOpen:  boolean
                 , address: TileAddress
                 }
@@ -73,7 +75,6 @@ type TilePair = [ Tile, Tile ]
 type YesOrNo = 'yes'
              | 'no'
 
-type TileName    = string
 type TileAddress = [ LayerIndex, RowIndex, TileIndex ]
 type LayerIndex  = number   // Bottom-layer index is 0.
 type RowIndex    = number   // Leftmost-tile index is 0.
@@ -87,31 +88,18 @@ type RowTemplate   = string
 //   - '-' represents the absence of a tile.
 //   - e.g. '--o-o-o-o-o-o-o-----'
 
-// Produces a random hex color code.
-const randomColor = (): string => {
-  const digits = '0123456789ABCDEF'
-
-  let code = '#'
-
-  for (let i = 0; i < 6; i++) {
-    code += digits[Math.floor(Math.random() * 16)]
-  }
-
-  return code
-}
-
 // Produces a layer.
-const makeLayer = ( rows: Row[], id: string = generate() ): Layer => (
+const makeLayer = (rows: Row[], id: string = generate()): Layer => (
   { rows, id }
 )
 
 // Produces a row.
-const makeRow = ( tiles: Tile[] = [], id: string = generate() ): Row => (
+const makeRow = (tiles: Tile[] = [], id: string = generate()): Row => (
   { tiles, id }
 )
 
 // Produces a tile.
-const makeTile = ( name:     TileName    = ''
+const makeTile = ( name:     string      = ''
                  , isOpen:   boolean     = false
                  , address:  TileAddress = [ 0, 0, 0 ]
                  , id:       string      = generate()
@@ -119,21 +107,17 @@ const makeTile = ( name:     TileName    = ''
   { name, isOpen, address, id }
 )
 
-//.Produces
+// Produces a commit.
 const makeCommit = ( children: Commit[]
                    , diff:     TilePair
                    , parent?:  Commit
-                   , color:    string  = randomColor()
-                   , id:       ShortID = generate()
+                   , color:    string = randomColor()
+                   , id:       string = generate()
                    ) => (
   { diff, id, children, parent, color }
 )
 
-const commit0   = makeCommit([], null)
-const timeline0 = { head:    commit0
-                  , current: commit0
-                  }
-
+// Produces a timeline.
 const makeTimeline = (): Timeline => {
   const head = makeCommit([], null)
 
@@ -236,13 +220,11 @@ export { areMatchingTiles
        , Row
        , RowIndex
        , RowTemplate
-       , ShortID
        , Table
        , Template
        , Tile
        , TileAddress
        , TileIndex
-       , TileName
        , TilePair
        , Timeline
        , Layer
