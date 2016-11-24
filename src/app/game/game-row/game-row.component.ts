@@ -1,3 +1,4 @@
+import { AnimationTransitionEvent } from '@angular/core'
 import { ChangeDetectionStrategy
        , Component
        , EventEmitter

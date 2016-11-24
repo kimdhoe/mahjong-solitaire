@@ -3,11 +3,12 @@
 
   [tile]="tile"
   [marked]="marked"
-
-  [@fade]="shouldAnimate"
+  [shouldAnimate]="shouldAnimate"
 
   [style.left.px]="leftForTile(tile)"
   [style.zIndex]="zIndexForTile(tile)"
+
+  [@fade]="shouldAnimate"
 
   (mark)="onMark($event)"
 >

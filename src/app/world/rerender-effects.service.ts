@@ -11,10 +11,10 @@ import 'rxjs/add/observable/timer'
 import 'rxjs/add/operator/mergeMap'
 import 'rxjs/add/operator/take'
 
-import DealerService    from '../dealer.service'
+import DealerService    from '../core/dealer.service'
 import { SHUFFLE
        , START_OVER
-       }      from './constants/action-names'
+       }                from './constants/action-names'
 import { setBoard
        , removeLayer
        , renderLayer
@@ -58,7 +58,7 @@ class RerenderEffects {
                 .take(5)
                 .map(() => removeLayer())
             , p.then(setBoard)
-            , Observable.interval(300)
+            , Observable.timer(0, 300)
                 .take(5)
                 .map(() => renderLayer())
             )

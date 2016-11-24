@@ -22,6 +22,7 @@ class GameTile {
   width:  number = TILE_WIDTH
   height: number = TILE_HEIGHT
 
+  @Input() shouldAnimate
   @Input() tile:   Tile
   @Input() marked: Tile[]
 
