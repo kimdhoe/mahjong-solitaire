@@ -12,7 +12,9 @@ import 'rxjs/add/operator/mergeMap'
 import 'rxjs/add/operator/take'
 
 import DealerService    from '../dealer.service'
-import { SHUFFLE }      from './constants/action-names'
+import { SHUFFLE
+       , START_OVER
+       }      from './constants/action-names'
 import { setBoard
        , removeLayer
        , renderLayer
@@ -30,15 +32,37 @@ class RerenderEffects {
     this.action$
       .ofType(SHUFFLE)
       .mergeMap(({ payload: { board } }) =>
-        Observable.concat(
-          Observable.timer(0, 200)
-            .take(5)
-            .map(() => removeLayer())
-        , Observable.of(setBoard(this.dealer.shuffle(board)))
-        , Observable.interval(300)
-            .take(5)
-            .map(() => renderLayer())
-        )
+        Observable.of(this.dealer.shuffle(board))
+          .mergeMap(p =>
+            Observable.concat(
+              Observable.timer(0, 200)
+                .take(5)
+                .map(() => removeLayer())
+            , p.then(setBoard)
+            , Observable.interval(300)
+                .take(5)
+                .map(() => renderLayer())
+            )
+          )
+      )
+
+  @Effect()
+  startOver$: Observable<Action> =
+    this.action$
+      .ofType(START_OVER)
+      .mergeMap(() =>
+        Observable.of(this.dealer.newTurtleBoard())
+          .mergeMap(p =>
+            Observable.concat(
+              Observable.timer(0, 200)
+                .take(5)
+                .map(() => removeLayer())
+            , p.then(setBoard)
+            , Observable.interval(300)
+                .take(5)
+                .map(() => renderLayer())
+            )
+          )
       )
 }
 

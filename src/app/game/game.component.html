@@ -1,6 +1,7 @@
 <div>
   <game-control
     [shouldAnimate]="shouldAnimate"
+    (startOver)="onStartOver()"
     (shuffle)="onShuffle()"
     (shuffleAtOnce)="onShuffleAtOnce()"
     (toggleAnimation)="onToggleAnimation()"

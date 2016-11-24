@@ -36,6 +36,8 @@ class Game {
   @Input() timeline: Timeline
 
   @Output() mark            = new EventEmitter()
+  @Output() startOver       = new EventEmitter()
+  @Output() startOverAtOnce = new EventEmitter()
   @Output() shuffle         = new EventEmitter<Board>()
   @Output() shuffleAtOnce   = new EventEmitter<Board>()
   @Output() toggleAnimation = new EventEmitter()
@@ -43,6 +45,13 @@ class Game {
 
   onMark (tile: Tile): void {
     this.mark.emit({ tile, marked: this.marked })
+  }
+
+  onStartOver (): void {
+    if (this.shouldAnimate === 'yes')
+      this.startOver.emit()
+    else
+      this.startOverAtOnce.emit()
   }
 
   onShuffle (): void {

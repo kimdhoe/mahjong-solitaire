@@ -19,6 +19,7 @@ import { MARK_TILE
        , SHUFFLE
        , SHUFFLE_AT_ONCE
        , START_GAME
+       , START_OVER_AT_ONCE
        , TIME_TRAVEL
        } from '../constants/action-names'
 
@@ -87,6 +88,7 @@ const tableOnTimeTravel = (table: Table, payload: any): Table => {
 const table = (state: Table = makeTable(), action: Action): Table => {
   switch (action.type) {
     case START_GAME:
+    case START_OVER_AT_ONCE:
       return tableOnStartGame()
 
     case MARK_TILE:

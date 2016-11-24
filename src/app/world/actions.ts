@@ -8,6 +8,8 @@ import { SET_BOARD
        , TOGGLE_ANIMATION
        , SHUFFLE
        , SHUFFLE_AT_ONCE
+       , START_OVER
+       , START_OVER_AT_ONCE
        , TIME_TRAVEL
        } from './constants/action-names'
 import { Board
@@ -60,4 +62,12 @@ export const timeTravel = (target: Commit): Action => (
   { type:    TIME_TRAVEL
   , payload: { target }
   }
+)
+
+export const startOver = (): Action => (
+  { type: START_OVER }
+)
+
+export const startOverAtOnce = (): Action => (
+  { type: START_OVER_AT_ONCE }
 )

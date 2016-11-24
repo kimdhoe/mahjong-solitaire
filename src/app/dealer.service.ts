@@ -7,12 +7,12 @@ import { newTurtleBoard
 
 @Injectable()
 class DealerService {
-  newTurtleBoard (): Board {
-    return newTurtleBoard()
+  newTurtleBoard (): Promise<Board> {
+    return Promise.resolve(newTurtleBoard())
   }
 
-  shuffle (board: Board): Board {
-    return shuffleBoard(board)
+  shuffle (board: Board): Promise<Board> {
+    return Promise.resolve(shuffleBoard(board))
   }
 }
 

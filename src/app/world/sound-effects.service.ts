@@ -18,13 +18,15 @@ class SoundEffects {
   }
 
   @Effect({ dispatch: false })
-  makeSound$ = this.action$.ofType(MARK_TILE)
-    .do(action => {
-      if (  action.payload.marked[0]
-         && areMatchingTiles(action.payload.tile, action.payload.marked[0])
-         )
-        this.keyboard.play()
-    })
+  makeSound$ =
+    this.action$
+      .ofType(MARK_TILE)
+      .do(action => {
+        if (  action.payload.marked[0]
+           && areMatchingTiles(action.payload.tile, action.payload.marked[0])
+           )
+          this.keyboard.play()
+      })
 }
 
 export default SoundEffects

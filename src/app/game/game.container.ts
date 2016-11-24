@@ -22,6 +22,7 @@ import { markTile
        , shuffle
        , shuffleAtOnce
        , startGame
+       , startOver
        , toggleAnimation
        , timeTravel
        }                from '../world/actions'
@@ -40,6 +41,8 @@ import { markTile
                  (shuffleAtOnce)="onShuffleAtOnce()"
                  (toggleAnimation)="onToggleAnimation()"
                  (timeTravel)="onTimeTravel($event)"
+                 (startOver)="onStartOver()"
+                 (startOverAtOnce)="onStartOverAtOnce()"
                >
                </game>
               `
@@ -69,27 +72,30 @@ class GameContainer implements OnInit {
     this.store.dispatch(startGame())
   }
 
-  // Dispatches MARK_TILE action.
+  onStartOver (): void {
+    this.store.dispatch(startOver())
+  }
+
+  onStartOverAtOnce (): void {
+    this.store.dispatch(startGame())
+  }
+
   onMark (payload: any): void {
     this.store.dispatch(markTile(payload))
   }
 
-  // Dispatches SHUFFLE action.
   onShuffle (board: Board): void {
     this.store.dispatch(shuffle(board))
   }
 
-  // Dispatches SHUFFLE_AT_ONCE action.
   onShuffleAtOnce (): void {
     this.store.dispatch(shuffleAtOnce())
   }
 
-  // Dispatches TOGGLE_ANIMATION action.
   onToggleAnimation (): void {
     this.store.dispatch(toggleAnimation())
   }
 
-  // Dispatches TIME_TRAVEL action loaded with a destination commit.
   onTimeTravel (commit: Commit): void {
     this.store.dispatch(timeTravel(commit))
   }

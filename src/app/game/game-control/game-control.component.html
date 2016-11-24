@@ -1,4 +1,5 @@
 <div class="GameControl">
+  <button (click)="startOver.emit()">(new-game!)</button>
   <button (click)="shuffle.emit()">(shuffle!)</button>
   <button (click)="toggleAnimation.emit()">
     (turn-{{shouldAnimate === 'yes' ? 'off' : 'on'}}-animation!)
