@@ -1,4 +1,10 @@
 <h1 class="App-title">
   {{title}}
 </h1>
-<game-container></game-container>
+
+<nav>
+  <a routerLink="/game" routerLinkActive="active">Play</a>
+  <a routerLink="/editor" routerLinkActive="active">Editor</a>
+</nav>
+
+<router-outlet></router-outlet>
