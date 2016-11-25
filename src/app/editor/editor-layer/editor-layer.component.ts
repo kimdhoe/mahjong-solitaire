@@ -5,21 +5,20 @@ import { ChangeDetectionStrategy
        , Output
        }              from '@angular/core'
 
-import { EditorBoard
-       , EditorLayer
-       , Slot
+import { EditorLayer
+       , EditorRow
        , SlotAddress
-       } from '../world/editor-model'
+       } from '../../world/editor-model'
 
 @Component(
-  { selector:        'editor'
-  , templateUrl:     './editor.component.html'
-  , styleUrls:       [ './editor.component.css' ]
+  { selector:        'editor-layer'
+  , templateUrl:     './editor-layer.component.html'
+  , styleUrls:       [ './editor-layer.component.css' ]
   , changeDetection: ChangeDetectionStrategy.OnPush
   }
 )
-class EditorComponent {
-  @Input() editor: EditorBoard
+class EditorLayerComponent {
+  @Input() layer: EditorLayer
 
   @Output() toggle = new EventEmitter<SlotAddress>()
 
@@ -27,9 +26,9 @@ class EditorComponent {
     this.toggle.emit(address)
   }
 
-  layerId (layer: EditorLayer): string {
-    return layer.id
+  rowId (row: EditorRow): string {
+    return row.id
   }
 }
 
-export default EditorComponent
+export default EditorLayerComponent

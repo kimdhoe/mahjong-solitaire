@@ -1,0 +1,9 @@
+<editor-slot
+  *ngFor="let slot of row.slots; let i=index; trackBy: slotId"
+
+  [slot]="slot"
+  [style.left.px]="i * 24"
+
+  (toggle)="onToggle($event)"
+>
+</editor-slot>

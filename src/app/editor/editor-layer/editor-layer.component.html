@@ -1,0 +1,9 @@
+<div class="Layer">
+  <editor-row
+    *ngFor="let row of layer.rows; let i=index; trackBy: rowId"
+    [row]="row"
+    [style.top.px]="i * 34"
+    (toggle)="onToggle($event)"
+  >
+  </editor-row>
+</div>

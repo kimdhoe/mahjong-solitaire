@@ -1,0 +1,90 @@
+:host {
+  position: absolute;
+}
+
+.Slot {
+  position: relative;
+  width: 48px;
+  height: 68px;
+  box-sizing: border-box;
+}
+
+.Slot-target {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -17px 0 0 -12px;
+  box-sizing: border-box;
+  width: 24px;
+  height: 34px;
+  cursor: pointer;
+
+  /* z-index: 30; */
+  /* border-radius: 50%; */
+  /* background-color: #ffcc33; */
+}
+
+.Slot-box {
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  position: absolute;
+  /* z-index: 30; */
+}
+
+.Slot-target:hover ~ .Slot-box {
+  /* z-index: 20; */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 2px solid #000;
+}
+
+.Slot-tile {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
+.Slot-tileFace {
+  position: absolute;
+  /* z-index: 20; */
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  border-right: 0;
+  border-bottom: 0;
+  background-color: #efefef;
+}
+
+.Slot-tileEast, .Slot-tileWest {
+  position: absolute;
+  /* z-index: 10; */
+  box-sizing: border-box;
+  transform-origin: top left;
+}
+
+.Slot-tileEast {
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  border-left: 1px solid #ccc;
+  width: 6px;
+  background: #555;
+  transform: skewY(45deg);
+}
+
+.Slot-tileWest {
+  top: 100%;
+  right: 0;
+  left: 0;
+  border-top: 1px solid #ccc;
+  height: 6px;
+  background: #999;
+  transform: skewX(45deg);
+}

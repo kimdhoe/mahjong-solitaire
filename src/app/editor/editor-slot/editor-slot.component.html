@@ -1,0 +1,34 @@
+<div class="Slot">
+  <div class="Slot-empty"
+    *ngIf="slot.isAvailable"
+  >
+    <div class="Slot-target"
+      [style.zIndex]="zIndex() + 30"
+      (click)="onClick()"
+    >
+    </div>
+
+    <div class="Slot-box"
+      [style.zIndex]="zIndex() + 20"
+    >
+    </div>
+  </div>
+
+  <div class="Slot-tile"
+    *ngIf="slot.hasTile"
+  >
+    <div class="Slot-tileFace"
+      [style.zIndex]="zIndex() + 20"
+    >
+    </div>
+    <div class="Slot-tileEast"
+      [style.zIndex]="zIndex() + 10"
+    >
+    </div>
+    <div class="Slot-tileWest"
+      [style.zIndex]="zIndex() + 10"
+    >
+    </div>
+  </div>
+
+</div>

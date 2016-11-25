@@ -1,1 +1,14 @@
 <h2>Editor</h2>
+
+<div class="Editor">
+  <div class="Editor-grid">
+    <editor-layer
+      *ngFor="let layer of editor; let i=index; trackBy: layerId"
+      [style.top.px]="i * -6"
+      [style.left.px]="i * -6"
+      [layer]="layer"
+      (toggle)="onToggle($event)"
+    >
+    </editor-layer>
+  </div>
+</div>

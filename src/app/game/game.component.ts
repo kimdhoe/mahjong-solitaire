@@ -4,9 +4,6 @@ import { ChangeDetectionStrategy
        , Input
        , Output
        }              from '@angular/core'
-import { Action
-       , Store
-       }              from '@ngrx/store'
 import { Observable } from 'rxjs/Observable'
 
 import 'rxjs/add/operator/map'

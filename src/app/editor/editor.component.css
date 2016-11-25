@@ -1,0 +1,19 @@
+:host {
+  text-align: center;
+}
+
+.Editor {
+  margin: 0 auto;
+  width: 720px;
+  height: 561px;
+}
+
+.Editor-grid {
+  position: relative;
+  height: 544px;
+  border: 1px solid #ccc;
+  border-top: 0;
+  border-left: 0;
+  background-size: 24px 34px;
+  background-image: linear-gradient(to right, #ccc 1px, transparent 1px), linear-gradient(to bottom, #ccc 1px, transparent 1px);
+}

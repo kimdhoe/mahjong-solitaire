@@ -1,16 +1,22 @@
 import { NgModule }     from '@angular/core'
 
-import SharedModule        from '../shared/shared.module'
-import EditorRoutingModule from './editor-routing.module'
-import Editor              from './editor.component'
-import EditorContainer     from './editor.container'
+import SharedModule         from '../shared/shared.module'
+import EditorRoutingModule  from './editor-routing.module'
+import EditorContainer      from './editor.container'
+import EditorComponent      from './editor.component'
+import EditorLayerComponent from './editor-layer/editor-layer.component'
+import EditorRowComponent   from './editor-row/editor-row.component'
+import EditorSlotComponent  from './editor-slot/editor-slot.component'
 
 @NgModule(
   { imports:      [ SharedModule
                   , EditorRoutingModule
                   ]
-  , declarations: [ Editor
-                  , EditorContainer
+  , declarations: [ EditorContainer
+                  , EditorComponent
+                  , EditorLayerComponent
+                  , EditorRowComponent
+                  , EditorSlotComponent
                   ]
   }
 )
