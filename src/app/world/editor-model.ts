@@ -13,8 +13,8 @@ interface EditorRow { id:    string
 interface Slot { id: string
 
                  // For a slot to be available:
-                 //   1) its space shouldn't be occupied.
-                 //   2) the top side should be open.
+                 //   1) any of its space shouldn't be occupied.
+                 //   2) all spaces of a layer below should be occupied.
                , isAvailable: boolean
 
                  // Does a slot have a tile?

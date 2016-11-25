@@ -6,14 +6,14 @@ import { addTiles
        , removeTiles
        , shuffleBoard
        , updateOpenness
-       } from '../dealer'
+       } from '../../dealer'
 import { isSameTile
        , makeTable
        , Table
        , Tile
        , proceedTimeline
        , collectRemovedTiles
-       } from '../model'
+       } from '../../model'
 import { MARK_TILE
        , SET_BOARD
        , SHUFFLE
@@ -21,7 +21,7 @@ import { MARK_TILE
        , START_GAME
        , START_OVER_AT_ONCE
        , TIME_TRAVEL
-       } from '../constants/action-names'
+       } from '../../constants/action-names'
 
 // Produces a new table.
 const tableOnStartGame = (): Table => {

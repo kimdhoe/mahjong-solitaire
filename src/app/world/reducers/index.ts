@@ -1,13 +1,14 @@
-import table         from './table'
-import shouldAnimate from './shouldAnimate'
-import visibleLayers from './visibleLayers'
-
-import editor from './editor/editor'
+import table         from './game/table'
+import shouldAnimate from './game/shouldAnimate'
+import visibleLayers from './game/visibleLayers'
+import editor        from './editor/editor'
+import isAdding      from './editor/isAdding'
 
 const reducers = { table
                  , shouldAnimate
                  , visibleLayers
                  , editor
+                 , isAdding
                  }
 
 export default reducers

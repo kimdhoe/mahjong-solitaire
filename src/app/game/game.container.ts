@@ -20,7 +20,7 @@ import { Board
        , Timeline
        }                from '../world/model'
 import { shuffleBoard } from '../world/dealer'
-import * as act         from '../world/actions'
+import * as act         from '../world/actions/game'
 
 @Component(
   { selector: 'game-container'

@@ -11,12 +11,12 @@ import { SET_BOARD
        , START_OVER
        , START_OVER_AT_ONCE
        , TIME_TRAVEL
-       } from './constants/action-names'
+       } from '../constants/action-names'
 import { Board
        , Tile
        , TilePair
        , Commit
-       } from './model'
+       } from '../model'
 
 export const startGame = (): Action => (
   { type: START_GAME }

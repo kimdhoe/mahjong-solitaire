@@ -14,9 +14,6 @@ import { Board
        , Commit
        , Timeline
        } from '../world/model'
-import { markTile
-       , startGame
-       } from '../world/actions'
 
 @Component(
   { selector:        'game'

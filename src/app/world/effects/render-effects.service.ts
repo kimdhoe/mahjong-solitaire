@@ -18,7 +18,7 @@ import { START_GAME
 import { setBoard
        , removeLayer
        , renderLayer
-       }                from '../actions'
+       }                from '../actions/game'
 import { shuffleBoard } from '../dealer'
 import DealerService    from '../../core/dealer.service'
 

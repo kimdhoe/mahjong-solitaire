@@ -1,5 +1,6 @@
 import { generate } from 'shortid'
 
+import { EditorBoard } from './editor-model'
 import { randomColor } from '../util'
 
 interface World { // Represents the informations regarding tiles and game play.
@@ -14,6 +15,12 @@ interface World { // Represents the informations regarding tiles and game play.
 
                   // Turn on and off animation.
                 , shouldAnimate: YesOrNo
+
+                  // Represents a layout editor data.
+                , editor: EditorBoard
+
+                  // Is user adding or removing tiles in layout editor?
+                , isAdding: boolean
                 }
 
 interface Timeline { // A head of a timeline tree.
