@@ -37,8 +37,11 @@ class EditorRowComponent {
     return slot.id
   }
 
+  // Calculates z-index of a given slot>
   zIndexForSlot (slot: Slot): number {
-    return slot.address[0] * 1000 + slot.address[1] * 100 + slot.address[2] * 100
+    return slot.address[0] * 1000
+         + slot.address[1] *  100
+         + slot.address[2] *  100
   }
 }
 

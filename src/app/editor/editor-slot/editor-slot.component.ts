@@ -20,7 +20,7 @@ class SlotComponent {
   @Input() slot:          Slot
   @Input() isAdding:      boolean
   @Input() numberOfAdded: number
-  @Input() zIndex: number
+  @Input() zIndex:        number
 
   @Output() addTile    = new EventEmitter<SlotAddress>()
   @Output() removeTile = new EventEmitter<SlotAddress>()
@@ -37,12 +37,6 @@ class SlotComponent {
   usedUpAllTiles (): boolean {
     return this.numberOfAdded >= 144
   }
-
-  // !!!
-  // calling this function too many times...
-  // zIndex (): number {
-  //   return this.slot.address[0] * 100 + this.slot.address[2] * 10
-  // }
 }
 
 export default SlotComponent

@@ -6,7 +6,8 @@ import { RouterModule
 import HomeComponent from './home.component'
 
 const appRoutes: Routes =
-  [ { path: '', component: HomeComponent } ]
+  // [ { path: '', component: HomeComponent } ]
+  [ { path: '', redirectTo: '/game', pathMatch: 'full' } ]
 
 @NgModule(
   { imports: [ RouterModule.forRoot(appRoutes) ]

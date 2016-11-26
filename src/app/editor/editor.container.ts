@@ -38,8 +38,8 @@ class EditorContainer {
     this.isAdding$      = store.select('isAdding')
     this.numberOfAdded$ = store.select('numberOfAdded')
 
-    this.editor$.subscribe(x => console.log(x))
-    this.isAdding$.subscribe(x => console.log(x))
+    // this.editor$.subscribe(x => console.log(x))
+    // this.isAdding$.subscribe(x => console.log(x))
   }
 
   onAddTile (address: SlotAddress): void {
