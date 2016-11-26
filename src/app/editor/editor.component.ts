@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy
        , EventEmitter
        , Input
        , Output
-       }              from '@angular/core'
+       } from '@angular/core'
 
 import { EditorBoard
        , EditorLayer
@@ -19,12 +19,25 @@ import { EditorBoard
   }
 )
 class EditorComponent {
-  @Input() editor: EditorBoard
+  @Input() editor:        EditorBoard
+  @Input() isAdding:      boolean
+  @Input() numberOfAdded: number
 
-  @Output() toggle = new EventEmitter<SlotAddress>()
+  @Output() addTile    = new EventEmitter<SlotAddress>()
+  @Output() removeTile = new EventEmitter<SlotAddress>()
+  @Output() toggleMode = new EventEmitter()
+  // @Output() saveLayout = new EventEmitter<>()
 
-  onToggle (address: SlotAddress): void {
-    this.toggle.emit(address)
+  onAddTile (address: SlotAddress): void {
+    this.addTile.emit(address)
+  }
+
+  onRemoveTile (address: SlotAddress): void {
+    this.removeTile.emit(address)
+  }
+
+  onToggleMode (): void {
+    this.toggleMode.emit()
   }
 
   layerId (layer: EditorLayer): string {

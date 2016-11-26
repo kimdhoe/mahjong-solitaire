@@ -3,24 +3,28 @@ import { generate } from 'shortid'
 import { EditorBoard } from './editor-model'
 import { randomColor } from '../util'
 
-interface World { // Represents the informations regarding tiles and game play.
+interface World { // [game] Represents the informations regarding tiles and
+                  // game play.
                   table: Table
 
-                  // The number of layers that is visible at the moment.
+                  // [game] The number of layers that is visible at the moment.
                   //   - 0: Nothing should be visible.
                   //   - 1: Only the bototm layer should be evisible.
                   //   - ...
                   //   - 5: All layers should be visible.
                 , visibleLayers: number
 
-                  // Turn on and off animation.
+                  // [editor] Turn on and off animation.
                 , shouldAnimate: YesOrNo
 
-                  // Represents a layout editor data.
+                  // [editor] Represents a layout editor data.
                 , editor: EditorBoard
 
-                  // Is user adding or removing tiles in layout editor?
+                  // [editor] Is user adding or removing tiles in layout editor?
                 , isAdding: boolean
+
+                  // [editor] Keeps track of the number of tiles added so far.
+                , numberOfAdded: number
                 }
 
 interface Timeline { // A head of a timeline tree.

@@ -1,0 +1,61 @@
+:host {
+}
+
+.EditorControl {
+  margin: 0 auto 2em;
+  width: 720px;
+}
+
+.meta {
+  overflow: hidden;
+  margin: 1em 0 2em;
+}
+
+.meta > div {
+  float: left;
+  width: 33.33%;
+  text-align: center;
+}
+
+.label {
+  padding-bottom: 0.5em;
+  letter-spacing: 1px;
+  font-size: 0.95em;
+  color: #777;
+}
+
+.metadata {
+  letter-spacing: 1px;
+  font-size: 1.1em;
+}
+
+.btn {
+  outline: none;
+  border: none;
+  background: none;
+  font-family: monospace;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.controller {
+  overflow: hidden;
+}
+
+.leftButtons, .rightButtons {
+  margin: 0;
+  padding: 0;
+  width: 50%;
+}
+
+.leftButtons {
+  float: left;
+}
+
+.rightButtons {
+  float: right;
+}
+
+.btn:hover {
+  text-decoration: underline;
+}

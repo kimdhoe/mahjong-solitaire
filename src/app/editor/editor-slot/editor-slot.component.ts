@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy
        , EventEmitter
        , Input
        , Output
-       }              from '@angular/core'
+       } from '@angular/core'
 
 import { Slot
        , SlotAddress
@@ -17,18 +17,32 @@ import { Slot
   }
 )
 class SlotComponent {
-  @Input() slot: Slot
+  @Input() slot:          Slot
+  @Input() isAdding:      boolean
+  @Input() numberOfAdded: number
+  @Input() zIndex: number
 
-  @Output() toggle = new EventEmitter<SlotAddress>()
+  @Output() addTile    = new EventEmitter<SlotAddress>()
+  @Output() removeTile = new EventEmitter<SlotAddress>()
 
-  onClick (): void {
-    console.log(`Click: Toggle slot #${this.slot.address}.`)
-    this.toggle.emit(this.slot.address)
+  onAddClick (): void {
+    this.addTile.emit(this.slot.address)
   }
 
-  zIndex (): number {
-    return this.slot.address[0] * 100 + this.slot.address[2] * 10
+  onRemoveClick (): void {
+    this.removeTile.emit(this.slot.address)
   }
+
+  // Has used up all 144 tiles?
+  usedUpAllTiles (): boolean {
+    return this.numberOfAdded >= 144
+  }
+
+  // !!!
+  // calling this function too many times...
+  // zIndex (): number {
+  //   return this.slot.address[0] * 100 + this.slot.address[2] * 10
+  // }
 }
 
 export default SlotComponent

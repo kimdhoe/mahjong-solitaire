@@ -1,13 +1,24 @@
-<h2>Editor</h2>
+<editor-control
+  [isAdding]="isAdding"
+  [numberOfAdded]="numberOfAdded"
+  (toggleMode)="onToggleMode()"
+>
+</editor-control>
 
 <div class="Editor">
   <div class="Editor-grid">
     <editor-layer
       *ngFor="let layer of editor; let i=index; trackBy: layerId"
+
+      [layer]="layer"
+      [isAdding]="isAdding"
+      [numberOfAdded]="numberOfAdded"
+
       [style.top.px]="i * -6"
       [style.left.px]="i * -6"
-      [layer]="layer"
-      (toggle)="onToggle($event)"
+
+      (addTile)="onAddTile($event)"
+      (removeTile)="onRemoveTile($event)"
     >
     </editor-layer>
   </div>

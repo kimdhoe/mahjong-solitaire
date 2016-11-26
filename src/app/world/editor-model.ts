@@ -17,6 +17,11 @@ interface Slot { id: string
                  //   2) all spaces of a layer below should be occupied.
                , isAvailable: boolean
 
+                 // For a slot to be emptiable:
+                 //   1) it must have a tile.
+                 //   2) its top side should be completely open.
+               , isEmptiable: boolean
+
                  // Does a slot have a tile?
                , hasTile: boolean
 
@@ -39,11 +44,12 @@ const makeRow = (slots: Slot[], id: string = generate()): EditorRow => (
 
 // Produces a slot.
 const makeSlot = ( isAvailable: boolean
+                 , isEmptiable: boolean
                  , hasTile:     boolean
                  , address:     SlotAddress
                  , id:          string = generate()
                  ): Slot => (
-  { isAvailable, hasTile, address, id }
+  { isAvailable, isEmptiable, hasTile, address, id }
 )
 
 // Given a layer index and a row index, produces an empty row.
@@ -52,9 +58,9 @@ const makeEmptyRow = (layerIndex: number, rowIndex: number): EditorRow => {
 
   for (let i = 0; i < 29; i++) {
     if (layerIndex === 0)
-      slots.push(makeSlot(true, false, [ layerIndex, rowIndex, i ]))
+      slots.push(makeSlot(true, false, false, [ layerIndex, rowIndex, i ]))
     else
-      slots.push(makeSlot(false, false, [ layerIndex, rowIndex, i ]))
+      slots.push(makeSlot(false, false, false, [ layerIndex, rowIndex, i ]))
   }
 
   return makeRow(slots)
@@ -82,14 +88,9 @@ const makeEmptyEditor = (): EditorBoard => {
   return layers
 }
 
-// !!!
-// When the slot-target is clicked, hasTile flag should be updated,
-// not isAvailable flag.
-// Then, should update isAvailable flags of slots around.
-
 // Given a slot, toggles hasTile flag.
 const toggleSlot = (slot: Slot): Slot =>
-  makeSlot(slot.isAvailable, !slot.hasTile,  slot.address)
+  makeSlot(slot.isAvailable, slot.isEmptiable, !slot.hasTile,  slot.address)
 
 // Given a editor-row and and a slot address, toggles isAvailable flag
 // of the corresponding slot.
@@ -262,7 +263,7 @@ const checkPresenceOfSurroundings = ( address: SlotAddress
 // the lower layers.
 const isAvailable = (address: SlotAddress, editor: EditorBoard): boolean => {
   const [ i, j, k ] = address
-  const lowerLayer  = editor[i - 1]
+  const lowerLayer  = editor[i-1]
 
   const isCurrentLayerOk = checkAbsenceOfSurroundings(address, editor[i])
   const isLowerLayerOk   =    !lowerLayer
@@ -271,8 +272,21 @@ const isAvailable = (address: SlotAddress, editor: EditorBoard): boolean => {
   return isCurrentLayerOk && isLowerLayerOk
 }
 
-// Updates isAvailable flag of a slot at address.
-const updateAvailabilityForRow = ( address: SlotAddress
+// Is a slot at address emptiable?
+// The empiability of a slot depends on the surroundings of the upper-layer
+// and the presence of a tile in the slot itself.
+const isEmptiable = (address: SlotAddress, editor: EditorBoard): boolean => {
+  const [ i, j, k ] = address
+  const upperLayer  = editor[i+1]
+
+  return editor[i].rows[j].slots[k].hasTile
+      && (  !upperLayer
+         || checkAbsenceOfSurroundings(address, upperLayer)
+         )
+}
+
+// Updates isAvailable and isEmptiable flags of a slot at address.
+const updateFlagsInRow = ( address: SlotAddress
                                  , editor:  EditorBoard
                                  ): EditorRow => {
   const [ i, j, k ]   = address
@@ -281,6 +295,7 @@ const updateAvailabilityForRow = ( address: SlotAddress
 
   const newSlots = [ ...slots.slice(0, k)
                    , makeSlot( isAvailable(address, editor)
+                             , isEmptiable(address, editor)
                              , slots[k].hasTile
                              , slots[k].address
                              )
@@ -290,45 +305,48 @@ const updateAvailabilityForRow = ( address: SlotAddress
   return makeRow(newSlots, id)
 }
 
-// Updates isAvailable flag of a slot at address.
-const updateAvailabilityForLayer = ( address: SlotAddress
-                                   , editor:  EditorBoard
-                                   ): EditorLayer => {
+// Updates isAvailable and isEmptiable flags of a slot at address.
+const updateFlagsInLayer = ( address: SlotAddress
+                           , editor:  EditorBoard
+                           ): EditorLayer => {
   const [ i, j, k ]  = address
   const layer        = editor[i]
   const { rows, id } = layer
 
   const newRows = [ ...rows.slice(0, j)
-                  , updateAvailabilityForRow(address, editor)
+                  , updateFlagsInRow(address, editor)
                   , ...rows.slice(j + 1)
                   ]
 
   return makeLayer(newRows, id)
 }
 
-// Updates isAvailable flag of a slot at address.
-const updateAvailability = ( address: SlotAddress
-                           , editor:  EditorBoard
-                           ): EditorBoard => {
+// Updates isAvailable and isEmptiable flags of a slot at address.
+const updateFlags = ( address: SlotAddress
+                    , editor:  EditorBoard
+                    ): EditorBoard => {
   const [ i ] = address
 
   return [ ...editor.slice(0, i)
-         , updateAvailabilityForLayer(address, editor)
+         , updateFlagsInLayer(address, editor)
          , ...editor.slice(i + 1)
          ]
 }
 
-// Updates isAvailable flags of all slots at addresses in addresses.
-const updateAvailabilities = ( addresses: SlotAddress[]
-                             , editor: EditorBoard
-                             ): EditorBoard =>
+// Updates isAvailable and isEmptiable flags of all slots at addresses in
+// addresses.
+const updateFlagsAll = ( addresses: SlotAddress[]
+                       , editor:    EditorBoard
+                       ): EditorBoard =>
   addresses.reduce(
-    (acc, x) => updateAvailability(x, acc)
+    (acc, x) => updateFlags(x, acc)
   , editor
   )
 
 // Given a editor and a slot address, toggles hasTile flag of the corresponding
-// slot. Then, updates isAvailable flags of the slots that were affected.
+// slot.
+// Then, updates isAvailable and isEmptiable flags of the slots that were
+// affected.
 const toggleSlotInEditor = ( editor:  EditorBoard
                            , address: SlotAddress
                            ): EditorBoard => {
@@ -340,7 +358,7 @@ const toggleSlotInEditor = ( editor:  EditorBoard
   const affectedAddress = collectAffected(address, editor)
                             .map(slot => slot.address)
 
-  return updateAvailabilities(affectedAddress, newEditor)
+  return updateFlagsAll(affectedAddress, newEditor)
 }
 
 export { EditorBoard
@@ -350,5 +368,4 @@ export { EditorBoard
        , Slot
        , SlotAddress
        , toggleSlotInEditor
-       , updateAvailability
        }

@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store'
 
 import { TOGGLE_MODE } from '../../constants/action-names'
 
-const isAdding = (state: true, action: Action): boolean => {
+const isAdding = (state: boolean = true, action: Action): boolean => {
   switch (action.type) {
 
     case TOGGLE_MODE:

@@ -1,9 +1,15 @@
 <div class="Layer">
   <editor-row
     *ngFor="let row of layer.rows; let i=index; trackBy: rowId"
+
     [row]="row"
+    [isAdding]="isAdding"
+    [numberOfAdded]="numberOfAdded"
+
     [style.top.px]="i * 34"
-    (toggle)="onToggle($event)"
+
+    (addTile)="onAddTile($event)"
+    (removeTile)="onRemoveTile($event)"
   >
   </editor-row>
 </div>

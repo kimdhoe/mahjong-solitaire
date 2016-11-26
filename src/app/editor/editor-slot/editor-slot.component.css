@@ -18,10 +18,6 @@
   width: 24px;
   height: 34px;
   cursor: pointer;
-
-  /* z-index: 30; */
-  /* border-radius: 50%; */
-  /* background-color: #ffcc33; */
 }
 
 .Slot-box {
@@ -29,11 +25,9 @@
   top: 0;
   left: 0;
   position: absolute;
-  /* z-index: 30; */
 }
 
 .Slot-target:hover ~ .Slot-box {
-  /* z-index: 20; */
   top: 0;
   right: 0;
   bottom: 0;
@@ -50,9 +44,19 @@
   height: 100%;
 }
 
+.Slot-removeTarget {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -17px 0 0 -12px;
+  box-sizing: border-box;
+  width: 24px;
+  height: 34px;
+  cursor: pointer;
+}
+
 .Slot-tileFace {
   position: absolute;
-  /* z-index: 20; */
   box-sizing: border-box;
   width: 100%;
   height: 100%;
@@ -62,9 +66,12 @@
   background-color: #efefef;
 }
 
+.Slot-removeTarget:hover ~ .Slot-tileFace {
+  border: 2px solid blue;
+}
+
 .Slot-tileEast, .Slot-tileWest {
   position: absolute;
-  /* z-index: 10; */
   box-sizing: border-box;
   transform-origin: top left;
 }

@@ -1,0 +1,46 @@
+<div class="EditorControl">
+  <div class="meta">
+    <div>
+      <p class="label"><span>EDITOR MODE</span></p>
+      <p class="metadata"><strong>{{isAdding ? 'Adding' : 'Removing'}}</strong></p>
+    </div>
+
+    <div>
+      <p class="label"><span>TILES</span></p>
+      <p class="meatdata"><strong>{{numberOfAdded}} / 144</strong></p>
+    </div>
+
+    <div class="name">
+      <p class="label"><label for="layoutName">LAYOUT NAME</label></p>
+      <p>
+        <input id="layoutName" type="text"
+          [(ngModel)]="layoutName"
+        >
+      </p>
+    </div>
+  </div>
+
+  <div class="controller">
+    <div class="leftButtons">
+      <button class="btn"
+        (click)="onToggleClick()"
+      >
+        (toggle-editor-mode!)
+      </button>
+    </div>
+
+    <div class="rightButtons">
+      <button class="btn"
+       (click)="onResetClick()"
+      >
+        (reset!)
+      </button>
+
+      <button class="btn"
+        (click)="onSaveClick()"
+      >
+        (save!)
+      </button>
+    </div>
+  </div>
+</div>

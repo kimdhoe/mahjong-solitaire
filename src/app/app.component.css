@@ -2,3 +2,25 @@
   text-align: center;
   font-family: monospace;
 }
+
+.App-nav {
+  text-align: center;
+}
+
+.App-navLink {
+  display:  inline-block;
+  margin: 0.5em 0;
+  padding: 0.7em 1.5em;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.App-navLink:hover {
+  color: red;
+}
+
+.active {
+  font-style: italic;
+  font-weight: bold;
+}

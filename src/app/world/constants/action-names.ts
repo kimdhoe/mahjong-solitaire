@@ -13,4 +13,6 @@ export const TIME_TRAVEL        = 'TIME_TRAVEL'
 
 // editor
 export const TOGGLE_SLOT = 'TOGGLE_SLOT'
+export const ADD_TILE    = 'ADD_TILE'
+export const REMOVE_TILE = 'REMOVE_TILE'
 export const TOGGLE_MODE = 'TOGGLE_MODE'
