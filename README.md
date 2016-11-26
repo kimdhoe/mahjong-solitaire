@@ -23,3 +23,5 @@ https://kimdhoe.github.io/mahjong-solitaire/
 ### 애니메이션
 
 애니메이션을 끄고 켤 수 있습니다.
+
+### 레이아웃 에디터 (Work In Progress)
