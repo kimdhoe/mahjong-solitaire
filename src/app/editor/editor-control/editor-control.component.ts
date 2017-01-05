@@ -22,6 +22,7 @@ class EditorControlComponent {
   @Input() numberOfAdded: number
 
   @Output() toggleMode = new EventEmitter()
+  @Output() saveLayout = new EventEmitter<string>()
 
   constructor (private id: IdService) {}
 
@@ -34,9 +35,16 @@ class EditorControlComponent {
   }
 
   onSaveClick (): void {
-    const name = this.layoutName.trim() || this.id.generate()
+    let name = this.layoutName.trim()
 
-    console.log(name, 'Save plz..')
+    if (!name) {
+      this.layoutName = this.id.generate()
+      name = this.layoutName
+    }
+
+    console.log('Save layout. NAME: ' + name)
+
+    this.saveLayout.emit(this.layoutName)
   }
 }
 

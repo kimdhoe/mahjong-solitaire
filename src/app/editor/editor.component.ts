@@ -26,7 +26,7 @@ class EditorComponent {
   @Output() addTile    = new EventEmitter<SlotAddress>()
   @Output() removeTile = new EventEmitter<SlotAddress>()
   @Output() toggleMode = new EventEmitter()
-  // @Output() saveLayout = new EventEmitter<>()
+  @Output() saveLayout = new EventEmitter<{ name: string, editor: EditorBoard }>()
 
   onAddTile (address: SlotAddress): void {
     this.addTile.emit(address)
@@ -38,6 +38,10 @@ class EditorComponent {
 
   onToggleMode (): void {
     this.toggleMode.emit()
+  }
+
+  onSaveLayout (name: string): void {
+    this.saveLayout.emit({ name, editor: this.editor })
   }
 
   layerId (layer: EditorLayer): string {

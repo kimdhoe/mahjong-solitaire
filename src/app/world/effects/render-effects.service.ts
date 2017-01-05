@@ -19,7 +19,6 @@ import { setBoard
        , removeLayer
        , renderLayer
        }                from '../actions/game'
-import { shuffleBoard } from '../dealer'
 import DealerService    from '../../core/dealer.service'
 
 @Injectable()

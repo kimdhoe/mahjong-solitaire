@@ -54,10 +54,11 @@ class EditorContainer {
     this.store.dispatch(act.toggleMode())
   }
 
-  // Saves a user-created layout to local storage.
-  onSaveLayout ({ name: string, layout: EditorBoard }): void {
+  // Saves a user-created layout to the Local Storage.
+  onSaveLayout ({ name, editor}: { name: string, editor: EditorBoard }): void {
     console.log('*** Save layout to Local Storage. ***')
-    // this.store.dispatch(act.saveLayout(name, layout))
+    console.log(editor)
+    this.store.dispatch(act.saveLayout(name, editor))
   }
 }
 

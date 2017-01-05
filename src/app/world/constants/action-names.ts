@@ -12,7 +12,9 @@ export const TOGGLE_ANIMATION   = 'TOGGLE_ANIMATION'
 export const TIME_TRAVEL        = 'TIME_TRAVEL'
 
 // editor
-export const TOGGLE_SLOT = 'TOGGLE_SLOT'
-export const ADD_TILE    = 'ADD_TILE'
-export const REMOVE_TILE = 'REMOVE_TILE'
-export const TOGGLE_MODE = 'TOGGLE_MODE'
+export const TOGGLE_SLOT  = 'TOGGLE_SLOT'
+export const ADD_TILE     = 'ADD_TILE'
+export const REMOVE_TILE  = 'REMOVE_TILE'
+export const SAVE_LAYOUT  = 'SAVE_LAYOUT'
+export const SAVED_LAYOUT = 'SAVED_LAYOUT'
+export const TOGGLE_MODE  = 'TOGGLE_MODE'

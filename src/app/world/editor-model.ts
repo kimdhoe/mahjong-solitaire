@@ -1,5 +1,10 @@
 import { generate } from 'shortid'
 
+import { Template
+, LayerTemplate
+, RowTemplate
+} from './model'
+
 type EditorBoard = Array<EditorLayer>
 
 interface EditorLayer { id:   string
@@ -29,7 +34,7 @@ interface Slot { id: string
                , address: SlotAddress
                }
 
-// Indice of a layer, a row, and a slot.
+// Indices of a layer, a row, and a slot.
 type SlotAddress = number[]
 
 // Produces a slot.
@@ -57,6 +62,7 @@ const makeEmptyRow = (layerIndex: number, rowIndex: number): EditorRow => {
   const slots: Slot[] = []
 
   for (let i = 0; i < 29; i++) {
+    // !!!
     if (layerIndex === 0)
       slots.push(makeSlot(true, false, false, [ layerIndex, rowIndex, i ]))
     else
@@ -287,8 +293,8 @@ const isEmptiable = (address: SlotAddress, editor: EditorBoard): boolean => {
 
 // Updates isAvailable and isEmptiable flags of a slot at address.
 const updateFlagsInRow = ( address: SlotAddress
-                                 , editor:  EditorBoard
-                                 ): EditorRow => {
+                         , editor:  EditorBoard
+                         ): EditorRow => {
   const [ i, j, k ]   = address
   const row           = editor[i].rows[j]
   const { slots, id } = row
@@ -361,6 +367,19 @@ const toggleSlotInEditor = ( editor:  EditorBoard
   return updateFlagsAll(affectedAddress, newEditor)
 }
 
+
+// Given an editor-row, produces a row-template.
+const serializeRow = (row: EditorRow): RowTemplate =>
+  row.slots.map(slot => slot.hasTile ? 'o' : '-').join('')
+
+// Given an editor-layer, produces a layer-template.
+const serializeLayer = (layer: EditorLayer): LayerTemplate =>
+  layer.rows.map(serializeRow)
+
+// Given an editor-board, produces a template.
+const serializeEditor = (editor: EditorBoard): Template =>
+  editor.map(serializeLayer)
+
 export { EditorBoard
        , EditorLayer
        , EditorRow
@@ -368,4 +387,6 @@ export { EditorBoard
        , Slot
        , SlotAddress
        , toggleSlotInEditor
+
+     , serializeEditor
        }
