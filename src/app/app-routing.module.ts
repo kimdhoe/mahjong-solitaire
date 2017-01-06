@@ -3,11 +3,11 @@ import { RouterModule
        , Routes
        }            from '@angular/router'
 
-import HomeComponent from './home.component'
+import HomeContainer from './home.container'
 
 const appRoutes: Routes =
-  // [ { path: '', component: HomeComponent } ]
-  [ { path: '', redirectTo: '/game', pathMatch: 'full' } ]
+  [ { path: '', component: HomeContainer } ]
+  // [ { path: '', redirectTo: '/game', pathMatch: 'full' } ]
 
 @NgModule(
   { imports: [ RouterModule.forRoot(appRoutes) ]

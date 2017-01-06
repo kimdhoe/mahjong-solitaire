@@ -6,6 +6,7 @@ import { SET_BOARD
        , REMOVE_LAYER
        , RENDER_LAYER
        , TOGGLE_ANIMATION
+       , SET_LAYOUTS
        , SHUFFLE
        , SHUFFLE_AT_ONCE
        , START_OVER
@@ -13,6 +14,7 @@ import { SET_BOARD
        , TIME_TRAVEL
        } from '../constants/action-names'
 import { Board
+       , Template
        , Tile
        , TilePair
        , Commit
@@ -69,4 +71,10 @@ export const startOver = (): Action => (
 
 export const startOverAtOnce = (): Action => (
   { type: START_OVER_AT_ONCE }
+)
+
+export const setLayouts = (layouts: { [name: string]: Template }): Action => (
+  { type:    SET_LAYOUTS,
+    payload: { layouts }
+  }
 )

@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects'
 import AppComponent     from './app.component'
 import AppRoutingModule from './app-routing.module'
 import HomeComponent    from './home.component'
+import HomeContainer    from './home.container'
 import GameModule       from './game/game.module'
 import EditorModule     from './editor/editor.module'
 import CoreModule       from './core/core.module'
@@ -17,6 +18,7 @@ import EditorEffects    from './world/effects/editor-effects.service'
 @NgModule(
   { declarations: [ AppComponent
                   , HomeComponent
+                  , HomeContainer
                   ]
   , imports:      [ BrowserModule
                   , AppRoutingModule

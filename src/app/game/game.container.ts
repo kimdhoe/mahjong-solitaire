@@ -60,7 +60,7 @@ class GameContainer implements OnInit {
     this.shouldAnimate$ = store.select('shouldAnimate')
     this.visibleLayers$ = store.select('visibleLayers')
 
-    // store.subscribe(x => console.log(x))
+    store.subscribe(x => console.log(x))
   }
 
   ngOnInit (): void {

@@ -25,7 +25,14 @@ interface World { // [game] Represents the informations regarding tiles and
 
                   // [editor] Keeps track of the number of tiles added so far.
                 , numberOfAdded: number
+
+                  // [home] Available layouts (turtle + user-created layouts)
+                , layouts: Array<LayoutData>
                 }
+
+interface LayoutData { name:     string
+                     , template: Template
+                     }
 
 interface Timeline { // A head of a timeline tree.
                      head:    Commit
@@ -98,6 +105,11 @@ type RowTemplate   = string
 //   - 'o' represents the presence of a tile.
 //   - '-' represents the absence of a tile.
 //   - e.g. '--o-o-o-o-o-o-o-----'
+
+// Produces a layout-data.
+const makeLayoutData = (name: string, template: Template): LayoutData => (
+  { name, template }
+)
 
 // Produces a layer.
 const makeLayer = (rows: Row[], id: string = generate()): Layer => (
@@ -223,7 +235,9 @@ export { areMatchingTiles
        , collectRemovedTiles
        , Commit
        , isSameTile
+       , LayoutData
        , makeLayer
+       , makeLayoutData
        , makeRow
        , makeTable
        , makeTile
