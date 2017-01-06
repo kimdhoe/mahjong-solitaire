@@ -1,12 +1,27 @@
 import { Injectable } from '@angular/core'
 
-import { Board } from '../world/model'
-import { newTurtleBoard
+import { Board
+       , Template
+       } from '../world/model'
+import { newBoard
+       , newTurtleBoard
        , shuffleBoard
        }         from '../world/dealer'
 
 @Injectable()
 class DealerService {
+  newBoard (template: Template): Promise<Board> {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(newBoard(template))
+      }
+      catch (err) {
+        console.error(err)
+        reject(err)
+      }
+    })
+  }
+
   // Produces a promise of a new turtle board.
   newTurtleBoard (): Promise<Board> {
     return new Promise((resolve, reject) => {

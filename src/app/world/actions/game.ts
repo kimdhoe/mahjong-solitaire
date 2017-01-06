@@ -1,26 +1,34 @@
 import { Action } from '@ngrx/store'
 
-import { SET_BOARD
-       , START_GAME
+import { INIT_GAME
        , MARK_TILE
        , REMOVE_LAYER
        , RENDER_LAYER
-       , TOGGLE_ANIMATION
+       , SET_BOARD
        , SET_LAYOUTS
+       , START_GAME
        , SHUFFLE
        , SHUFFLE_AT_ONCE
        , START_OVER
        , START_OVER_AT_ONCE
        , TIME_TRAVEL
+       , TOGGLE_ANIMATION
        } from '../constants/action-names'
 import { Board
+       , LayoutData
        , Template
        , Tile
        , TilePair
        , Commit
        } from '../model'
 
-export const startGame = (layout: string): Action => (
+export const initGame = (layout: string): Action => (
+  { type:    INIT_GAME
+  , payload: { layout }
+  }
+)
+
+export const startGame = (layout: LayoutData): Action => (
   { type:    START_GAME
   , payload: { layout }
   }
@@ -67,8 +75,10 @@ export const timeTravel = (target: Commit): Action => (
   }
 )
 
-export const startOver = (): Action => (
-  { type: START_OVER }
+export const startOver = (layout: LayoutData): Action => (
+  { type:    START_OVER
+  , payload: { layout }
+  }
 )
 
 export const startOverAtOnce = (): Action => (

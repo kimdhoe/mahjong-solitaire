@@ -1,4 +1,5 @@
 // game
+export const INIT_GAME          = 'INIT_GAME'
 export const START_GAME         = 'START_GAME'
 export const MARK_TILE          = 'MARK_TILE'
 export const REMOVE_LAYER       = 'REMOVE_LAYER'

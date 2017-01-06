@@ -60,8 +60,9 @@ class RenderEffects {
   startOver$: Observable<Action> =
     this.action$
       .ofType(START_OVER)
-      .mergeMap(() =>
-        Observable.of(this.dealer.newTurtleBoard())
+      .mergeMap(({ payload: { layout } }) =>
+        // Observable.of(this.dealer.newTurtleBoard())
+        Observable.of(this.dealer.newBoard(layout.template))
           .mergeMap(promise =>
             Observable.concat(
               Observable.timer(0, 200)

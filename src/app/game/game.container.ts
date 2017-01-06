@@ -1,6 +1,10 @@
 import { Component
        , OnInit
        }              from '@angular/core'
+import { Router
+       , ActivatedRoute
+       , Params
+       }              from '@angular/router'
 import { Action
        , Store
        }              from '@ngrx/store'
@@ -13,6 +17,7 @@ import 'rxjs/add/operator/distinctUntilChanged'
 
 import { Board
        , Commit
+       , LayoutData
        , Table
        , Tile
        , World
@@ -25,6 +30,7 @@ import * as act         from '../world/actions/game'
 @Component(
   { selector: 'game-container'
   , template: `<game
+                 [layout]="layout$ | async"
                  [board]="board$ | async"
                  [marked]="marked$ | async"
                  [shouldAnimate]="shouldAnimate$ | async"
@@ -36,7 +42,7 @@ import * as act         from '../world/actions/game'
                  (shuffleAtOnce)="onShuffleAtOnce()"
                  (toggleAnimation)="onToggleAnimation()"
                  (timeTravel)="onTimeTravel($event)"
-                 (startOver)="onStartOver()"
+                 (startOver)="onStartOver($event)"
                  (startOverAtOnce)="onStartOverAtOnce()"
                >
                </game>
@@ -44,19 +50,22 @@ import * as act         from '../world/actions/game'
   }
 )
 class GameContainer implements OnInit {
+  layout$:        Observable<LayoutData>
   board$:         Observable<Board>
   marked$:        Observable<Tile[]>
   shouldAnimate$: Observable<YesOrNo>
   visibleLayers$: Observable<number>
+  timeline$:      Observable<Timeline>
 
-  timeline$: Observable<Timeline>
-
-  constructor (private store: Store<World>) {
+  constructor ( private store:  Store<World>
+              , private route:  ActivatedRoute
+              ) {
     const table$: Observable<Table> = store.select('table')
 
-    this.board$         = table$.map(table => table.board)
-    this.marked$        = table$.map(table => table.marked)
-    this.timeline$      = table$.map(table => table.timeline)
+    this.layout$        = table$.map(t => t.layout)
+    this.board$         = table$.map(t => t.board)
+    this.marked$        = table$.map(t => t.marked)
+    this.timeline$      = table$.map(t => t.timeline)
     this.shouldAnimate$ = store.select('shouldAnimate')
     this.visibleLayers$ = store.select('visibleLayers')
 
@@ -64,10 +73,14 @@ class GameContainer implements OnInit {
   }
 
   ngOnInit (): void {
-    this.store.dispatch(act.startGame('turtle'))
-
     // !!!
-    // Local storage?
+    // Extract a layout name from a route.
+    this.route.params.subscribe((params: Params) => {
+      this.store.dispatch(act.initGame(params['name']))
+    })
+    // this.store.dispatch(act.startGame('turtle'))
+
+    // !!! Save game status? Local storage?
     // Save board and timeline state.
     // Seems to be sufficient to listen for timeline changes and nothing else.
     this.timeline$
@@ -77,12 +90,13 @@ class GameContainer implements OnInit {
       })
   }
 
-  onStartOver (): void {
-    this.store.dispatch(act.startOver())
+  // !!!
+  onStartOver (layout: LayoutData): void {
+    this.store.dispatch(act.startOver(layout))
   }
 
   onStartOverAtOnce (): void {
-    this.store.dispatch(act.startGame('turtle'))
+    this.store.dispatch(act.startOverAtOnce())
   }
 
   onMark ({ tile, marked }): void {

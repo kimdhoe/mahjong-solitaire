@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 
 import { Board
+       , LayoutData
        , Tile
        , YesOrNo
        , Commit
@@ -22,6 +23,7 @@ import { Board
   }
 )
 class Game {
+  @Input() layout:        LayoutData
   @Input() board:         Board
   @Input() marked:        Tile[]
   @Input() shouldAnimate: YesOrNo
@@ -43,7 +45,7 @@ class Game {
 
   onStartOver (): void {
     if (this.shouldAnimate === 'yes')
-      this.startOver.emit()
+      this.startOver.emit(this.layout)
     else
       this.startOverAtOnce.emit()
   }

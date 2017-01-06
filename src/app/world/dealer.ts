@@ -52,7 +52,7 @@ const initRow = ( rt:         RowTemplate
   return makeRow(tiles)
 }
 
-// Given a layer template and tile names, initialized a layer.
+// Given a layer template and tile names, initializes a layer.
 const initLayer = ( lt:         LayerTemplate
                   , layerIndex: LayerIndex
                   , names:      string[]

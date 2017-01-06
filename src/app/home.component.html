@@ -1,0 +1,6 @@
+<p>Hello World</p>
+<ul>
+  <li *ngFor="let name of layoutNames">{{name}}
+    <a [routerLink]="['/game', name]">{{name}}</a>
+  </li>
+</ul>

@@ -3,12 +3,8 @@ import { Component
        } from '@angular/core'
 
 @Component(
-  { selector: 'home'
-  , template: `<p>Hello World</p>
-               <ul>
-                 <li *ngFor="let name of layoutNames">{{name}}</li>
-               </ul>
-              `
+  { selector:    'home'
+  , templateUrl: './home.component.html'
   }
 )
 class HomeComponent {

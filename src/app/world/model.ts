@@ -65,8 +65,12 @@ interface Table { // On time travel, a set of tiles will be removed from
                   // A revision tree.
                 , timeline:  Timeline
 
+                  // !!!
+                , layout:    LayoutData
+
+                  // !!! remove?
                   // Available layouts (Turtle + saved layouts)
-                , layouts:  Array<LayoutData>
+                // , layouts:   Array<LayoutData>
                 }
 
 interface LayoutData { name:     string
@@ -151,13 +155,13 @@ const makeTimeline = (): Timeline => {
 }
 
 // Produces a table.
-const makeTable = ( layouts:   LayoutData[] = [ makeLayoutData('turtle', TURTLE) ]
-                  , baseBoard: Board        = []
-                  , board:     Board        = []
-                  , marked:    Tile[]       = []
-                  , timeline:  Timeline     = makeTimeline()
+const makeTable = ( layout:    LayoutData = makeLayoutData('turtle', TURTLE)
+                  , baseBoard: Board      = []
+                  , board:     Board      = []
+                  , marked:    Tile[]     = []
+                  , timeline:  Timeline   = makeTimeline()
                   ): Table => (
-  { layouts, baseBoard, board, marked, timeline }
+  { layout, baseBoard, board, marked, timeline }
 )
 
 // Are the addresses of t1 and t2 the same?

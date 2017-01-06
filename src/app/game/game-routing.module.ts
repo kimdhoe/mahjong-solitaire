@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core'
 import { RouterModule
        , Routes
-       } from '@angular/router'
+       }            from '@angular/router'
 
 import GameContainer from './game.container'
 
 const gameRoutes: Routes =
-   [ { path: 'game', component: GameContainer } ]
+   [ { path: 'game', redirectTo: '/game/turtle', pathMatch: 'full' }
+   , { path: 'game/:name', component: GameContainer }
+   ]
 
 @NgModule(
   { imports: [ RouterModule.forChild(gameRoutes) ]
