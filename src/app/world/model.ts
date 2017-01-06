@@ -2,6 +2,7 @@ import { generate } from 'shortid'
 
 import { EditorBoard } from './editor-model'
 import { randomColor } from '../util'
+import TURTLE          from './constants/templates/turtle'
 
 interface World { // [game] Represents the informations regarding tiles and
                   // game play.
@@ -25,14 +26,7 @@ interface World { // [game] Represents the informations regarding tiles and
 
                   // [editor] Keeps track of the number of tiles added so far.
                 , numberOfAdded: number
-
-                  // [home] Available layouts (turtle + user-created layouts)
-                , layouts: Array<LayoutData>
                 }
-
-interface LayoutData { name:     string
-                     , template: Template
-                     }
 
 interface Timeline { // A head of a timeline tree.
                      head:    Commit
@@ -70,7 +64,14 @@ interface Table { // On time travel, a set of tiles will be removed from
 
                   // A revision tree.
                 , timeline:  Timeline
+
+                  // Available layouts (Turtle + saved layouts)
+                , layouts:  Array<LayoutData>
                 }
+
+interface LayoutData { name:     string
+                     , template: Template
+                     }
 
 type Board = Array<Layer>
 
@@ -150,12 +151,13 @@ const makeTimeline = (): Timeline => {
 }
 
 // Produces a table.
-const makeTable = ( baseBoard: Board    = []
-                  , board:     Board    = []
-                  , marked:    Tile[]   = []
-                  , timeline:  Timeline = makeTimeline()
+const makeTable = ( layouts:   LayoutData[] = [ makeLayoutData('turtle', TURTLE) ]
+                  , baseBoard: Board        = []
+                  , board:     Board        = []
+                  , marked:    Tile[]       = []
+                  , timeline:  Timeline     = makeTimeline()
                   ): Table => (
-  { baseBoard, board, marked, timeline }
+  { layouts, baseBoard, board, marked, timeline }
 )
 
 // Are the addresses of t1 and t2 the same?

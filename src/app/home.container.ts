@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable'
 
 import { LayoutData
        , World
+       , Table
        }              from './world/model'
 import { setLayouts } from './world/actions/game'
 
@@ -20,9 +21,11 @@ class HomeComponent implements OnInit {
   layoutNames$: Observable<string[]>
 
   constructor (private store: Store<World>) {
-    const layouts$: Observable<LayoutData[]> = store.select('layouts')
+    const table$: Observable<Table> = store.select('table')
 
-    this.layoutNames$ = layouts$.map(layouts => layouts.map(l => l.name))
+    this.layoutNames$ = table$.map(table => table.layouts.map(l => l.name))
+
+    // this.layoutNames$ = layouts$.map(layouts => layouts.map(l => l.name))
   }
 
   ngOnInit (): void {

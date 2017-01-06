@@ -20,8 +20,10 @@ import { Board
        , Commit
        } from '../model'
 
-export const startGame = (): Action => (
-  { type: START_GAME }
+export const startGame = (layout: string): Action => (
+  { type:    START_GAME
+  , payload: { layout }
+  }
 )
 
 export const setBoard = (board: Board): Action => (

@@ -64,7 +64,7 @@ class GameContainer implements OnInit {
   }
 
   ngOnInit (): void {
-    this.store.dispatch(act.startGame())
+    this.store.dispatch(act.startGame('turtle'))
 
     // !!!
     // Local storage?
@@ -82,7 +82,7 @@ class GameContainer implements OnInit {
   }
 
   onStartOverAtOnce (): void {
-    this.store.dispatch(act.startGame())
+    this.store.dispatch(act.startGame('turtle'))
   }
 
   onMark ({ tile, marked }): void {

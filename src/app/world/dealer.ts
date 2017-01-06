@@ -292,6 +292,7 @@ const shuffleBoard = (board: Board): Board => {
 
 export { addTiles
        , initBoard
+       , newBoard
        , newTurtleBoard
        , removeTiles
        , shuffleBoard
