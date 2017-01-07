@@ -5,6 +5,7 @@ import { INIT_GAME
        , REMOVE_LAYER
        , RENDER_LAYER
        , SET_BOARD
+       , SET_BOARDS
        , SET_LAYOUTS
        , START_GAME
        , SHUFFLE
@@ -36,6 +37,12 @@ export const startGame = (layout: LayoutData): Action => (
 
 export const setBoard = (board: Board): Action => (
   { type:    SET_BOARD
+  , payload: { board }
+  }
+)
+
+export const setBoards = (board: Board): Action => (
+  { type:    SET_BOARDS
   , payload: { board }
   }
 )

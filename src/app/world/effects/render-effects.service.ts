@@ -16,6 +16,7 @@ import { START_GAME
        , START_OVER
        }                from '../constants/action-names'
 import { setBoard
+       , setBoards
        , removeLayer
        , renderLayer
        }                from '../actions/game'
@@ -61,14 +62,13 @@ class RenderEffects {
     this.action$
       .ofType(START_OVER)
       .mergeMap(({ payload: { layout } }) =>
-        // Observable.of(this.dealer.newTurtleBoard())
         Observable.of(this.dealer.newBoard(layout.template))
           .mergeMap(promise =>
             Observable.concat(
               Observable.timer(0, 200)
                 .take(5)
                 .map(removeLayer)
-            , promise.then(setBoard)
+            , promise.then(setBoards)
             , Observable.timer(0, 300)
                 .take(5)
                 .map(renderLayer)

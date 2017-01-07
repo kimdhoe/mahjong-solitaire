@@ -2,15 +2,15 @@ import { Component } from '@angular/core'
 
 import { makeTile
        , Tile
-       } from '../../world/model'
+       } from './world/model'
 
 @Component(
-  { selector:    'game-footer'
-  , templateUrl: './game-footer.component.html'
-  , styleUrls:   [ './game-footer.component.css' ]
+  { selector:    'app-footer'
+  , templateUrl: './app-footer.component.html'
+  , styleUrls:   [ './app-footer.component.css' ]
   }
 )
-class GameFooter {
+class AppFooterComponent {
   tiles: Tile[] = [ makeTile('angular', false, [ 0, 0, 0 ])
                   , makeTile('ngrx', false, [ 0, 0, 0 ])
                   , makeTile('rxjs', false, [ 0, 0, 0 ])
@@ -22,4 +22,4 @@ class GameFooter {
                   ]
 }
 
-export default GameFooter
+export default AppFooterComponent

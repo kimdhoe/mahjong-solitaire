@@ -1,6 +1,51 @@
-<p>Hello World</p>
-<ul>
-  <li *ngFor="let name of layoutNames">{{name}}
-    <a [routerLink]="['/game', name]">{{name}}</a>
-  </li>
-</ul>
+<div class="Home">
+  <div class="LayoutList">
+    <h3 class="LayoutList-title">
+      <a routerLink="/game/turtle">Play Mahjong Solitaire!</a>
+    </h3>
+
+    <p class="LayoutList-description">
+      You have {{layoutNames.length}} layout{{layoutNames.length > 1 ? 's' : ''}}.
+      Choose one to start playing or
+      <a routerLink="/editor">design your own layouts!</a>
+    </p>
+
+    <ul class="LayoutList-layoutList">
+      <li
+        class="LayoutList-layout"
+        *ngFor="let name of layoutNames"
+        >
+        <a [routerLink]="['/game', name]">
+          {{name === 'turtle' ? 'Turtle (classic)' : name}}
+        </a>
+        <button
+          *ngIf="name !== 'turtle'"
+          >
+          delete
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="HowTo">
+    <h4 class="HowTo-title">How to play:</h4>
+
+    <p class="HowTo-contents">
+      Remove a pair of identical tiles at a time. The goal of the game is to remove
+      as many tiles as possible. You can only select open tiles, which can be moved
+      either left or right without disturbing other tiles.
+    </p>
+
+    <p class="HowTo-contents">
+      If you get stuck, use the shuffling feature or the time-travel tree to jump back
+      to any previous moment from where you can start over.
+    </p>
+  </div>
+
+  <ul class="TagList">
+    <li class="Tag">#Mahjong-Solitaire</li>
+    <li class="Tag">#Shuffle</li>
+    <li class="Tag">#Time-Travel</li>
+    <li class="Tag">#Layout-Editor</li>
+  </ul>
+</div>

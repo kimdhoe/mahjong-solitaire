@@ -19,6 +19,7 @@ import { isSameTile
        }      from '../../model'
 import { MARK_TILE
        , SET_BOARD
+       , SET_BOARDS
        , SET_LAYOUTS
        , SHUFFLE
        , SHUFFLE_AT_ONCE
@@ -139,11 +140,11 @@ const table = (state: Table = makeTable(), action: Action): Table => {
     case SHUFFLE_AT_ONCE:
       return tableOnShuffleAtOnce(state)
 
-    case SET_BOARD:
-      return makeTable(state.layout, action.payload.board, action.payload.board)
+    case SET_BOARD:   // Do not change the base board:
+      return makeTable(state.layout, state.baseBoard, action.payload.board)
 
-    // case SET_LAYOUTS:
-    //   return tableOnSetLayouts(state, action.payload)
+    case SET_BOARDS:  // Change the base board:
+      return makeTable(state.layout, action.payload.board, action.payload.board)
 
     default:
       return state

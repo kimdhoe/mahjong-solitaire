@@ -7,7 +7,6 @@ import HomeContainer from './home.container'
 
 const appRoutes: Routes =
   [ { path: '', component: HomeContainer } ]
-  // [ { path: '', redirectTo: '/game', pathMatch: 'full' } ]
 
 @NgModule(
   { imports: [ RouterModule.forRoot(appRoutes) ]
