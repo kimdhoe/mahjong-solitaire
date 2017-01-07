@@ -18,28 +18,33 @@ import * as act  from '../world/actions/editor'
                  [editor]="editor$ | async"
                  [isAdding]="isAdding$ | async"
                  [numberOfAdded]="numberOfAdded$ | async"
+                 [hasChanged]="hasChanged$ | async"
 
                  (addTile)="onAddTile($event)"
                  (removeTile)="onRemoveTile($event)"
                  (toggleMode)="onToggleMode()"
+                 (resetEditor)="onResetEditor()"
                  (saveLayout)="onSaveLayout($event)"
                >
                </editor>
               `
   }
 )
-class EditorContainer {
+class EditorContainer implements OnInit {
   editor$:        Observable<EditorBoard>
   isAdding$:      Observable<boolean>
   numberOfAdded$: Observable<number>
+  hasChanged$:    Observable<boolean>
 
   constructor (private store: Store<World>) {
     this.editor$        = store.select('editor')
     this.isAdding$      = store.select('isAdding')
     this.numberOfAdded$ = store.select('numberOfAdded')
+    this.hasChanged$    = store.select('hasChanged')
+  }
 
-    // this.editor$.subscribe(x => console.log(x))
-    // this.isAdding$.subscribe(x => console.log(x))
+  ngOnInit (): void {
+    this.store.dispatch(act.initEditor())
   }
 
   onAddTile (address: SlotAddress): void {
@@ -54,10 +59,12 @@ class EditorContainer {
     this.store.dispatch(act.toggleMode())
   }
 
+  onResetEditor (): void {
+    this.store.dispatch(act.resetEditor())
+  }
+
   // Saves a user-created layout to the Local Storage.
   onSaveLayout ({ name, editor}: { name: string, editor: EditorBoard }): void {
-    console.log('*** Save layout to Local Storage. ***')
-    console.log(editor)
     this.store.dispatch(act.saveLayout(name, editor))
   }
 }

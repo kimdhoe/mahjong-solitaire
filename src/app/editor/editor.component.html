@@ -1,7 +1,10 @@
 <editor-control
   [isAdding]="isAdding"
   [numberOfAdded]="numberOfAdded"
+  [hasChanged]="hasChanged"
+
   (toggleMode)="onToggleMode()"
+  (resetEditor)="onResetEditor()"
   (saveLayout)="onSaveLayout($event)"
 >
 </editor-control>

@@ -3,6 +3,11 @@
   font-family: monospace;
 }
 
+.App-title a {
+  color: #444;
+  text-decoration: none;
+}
+
 .App-nav {
   text-align: center;
 }

@@ -4,24 +4,26 @@ import { ADD_TILE
        , INIT_EDITOR
        , REMOVE_TILE
        , RESET_EDITOR
+       , SAVED_LAYOUT
        } from '../../constants/action-names'
 
-const numberOfAdded = (state: number = 0, action: Action): number => {
+const hasChanged = (state: boolean = false, action: Action): boolean => {
   switch (action.type) {
 
     case ADD_TILE:
-      return state + 1
-
     case REMOVE_TILE:
-      return state - 1
-
     case RESET_EDITOR:
+      return true
+
     case INIT_EDITOR:
-      return 0
+      return false
+
+    case SAVED_LAYOUT:
+      return action.payload.succeeded ? false : true
 
     default:
       return state
   }
 }
 
-export default numberOfAdded
+export default hasChanged

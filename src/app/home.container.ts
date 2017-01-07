@@ -11,38 +11,41 @@ import { LayoutData
        , World
        }              from './world/model'
 import { setLayouts } from './world/actions/game'
+import LayoutService  from './core/layout.service'
 
 @Component(
   { selector: 'home-container'
-  , template: `<home [layoutNames]="layoutNames"></home>`
+  , template: `<home
+                 [layoutNames]="layoutNames"
+
+                 (deleteLayout)="onDeleteLayout($event)"
+               >
+               </home>
+              `
   }
 )
-class HomeComponent implements OnInit {
+class HomeContainer implements OnInit {
   layoutNames: string[]
 
-  constructor (private store: Store<World>) {
-    // const table$: Observable<Table> = store.select('table')
-    //
-    // this.layoutNames$ = table$.map(table => table.layouts.map(l => l.name))
-
-    // this.layoutNames$ = layouts$.map(layouts => layouts.map(l => l.name))
-  }
+  constructor (private layout: LayoutService) {}
 
   ngOnInit (): void {
-    const templates = JSON.parse(localStorage.getItem('templates'))
+    const templates = this.layout.getLayouts()
     const names     = templates ? Object.keys(templates) : []
 
     this.layoutNames = [ 'turtle', ...names ]
-
-      // this.store.dispatch(setLayouts(templates))
-
-    // console.log(Object.keys(templates))
-
-    // Create HomeContainer ???
-    // setTemplates(templates)
   }
 
+  onDeleteLayout (name: string): void {
+    console.log(`Delete ${name}`)
 
+    try {
+      this.layout.deleteLayout(name)
+      this.layoutNames = this.layoutNames.filter(n => n !== name)
+    } catch (e) {
+      console.error(e)
+    }
+  }
 }
 
-export default HomeComponent
+export default HomeContainer

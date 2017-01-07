@@ -22,11 +22,13 @@ class EditorComponent {
   @Input() editor:        EditorBoard
   @Input() isAdding:      boolean
   @Input() numberOfAdded: number
+  @Input() hasChanged:    boolean
 
-  @Output() addTile    = new EventEmitter<SlotAddress>()
-  @Output() removeTile = new EventEmitter<SlotAddress>()
-  @Output() toggleMode = new EventEmitter()
-  @Output() saveLayout = new EventEmitter<{ name: string, editor: EditorBoard }>()
+  @Output() addTile     = new EventEmitter<SlotAddress>()
+  @Output() removeTile  = new EventEmitter<SlotAddress>()
+  @Output() toggleMode  = new EventEmitter()
+  @Output() resetEditor = new EventEmitter()
+  @Output() saveLayout  = new EventEmitter<{ name: string, editor: EditorBoard }>()
 
   onAddTile (address: SlotAddress): void {
     this.addTile.emit(address)
@@ -38,6 +40,10 @@ class EditorComponent {
 
   onToggleMode (): void {
     this.toggleMode.emit()
+  }
+
+  onResetEditor (): void {
+    this.resetEditor.emit()
   }
 
   onSaveLayout (name: string): void {

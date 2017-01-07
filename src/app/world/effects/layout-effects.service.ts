@@ -8,13 +8,13 @@ import 'rxjs/add/operator/catch'
 
 import { INIT_GAME
        , SAVE_LAYOUT
-       }                   from '../constants/action-names'
-import { startGame }       from '../actions/game'
-import { savedLayout }     from '../actions/editor'
-import LayoutService       from '../../core/layout.service'
+       }               from '../constants/action-names'
+import { startGame }   from '../actions/game'
+import { savedLayout } from '../actions/editor'
+import LayoutService   from '../../core/layout.service'
 
 @Injectable()
-class EditorEffects {
+class LayoutEffects {
   constructor ( private action$: Actions
               , private layout:  LayoutService
               ) {}
@@ -38,4 +38,4 @@ class EditorEffects {
       .map(startGame)
 }
 
-export default EditorEffects
+export default LayoutEffects

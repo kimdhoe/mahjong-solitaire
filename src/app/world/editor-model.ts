@@ -1,9 +1,9 @@
 import { generate } from 'shortid'
 
 import { Template
-, LayerTemplate
-, RowTemplate
-} from './model'
+       , LayerTemplate
+       , RowTemplate
+       } from './model'
 
 type EditorBoard = Array<EditorLayer>
 

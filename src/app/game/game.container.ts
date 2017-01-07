@@ -1,8 +1,7 @@
 import { Component
        , OnInit
        }              from '@angular/core'
-import { Router
-       , ActivatedRoute
+import { ActivatedRoute
        , Params
        }              from '@angular/router'
 import { Action
@@ -57,8 +56,8 @@ class GameContainer implements OnInit {
   visibleLayers$: Observable<number>
   timeline$:      Observable<Timeline>
 
-  constructor ( private store:  Store<World>
-              , private route:  ActivatedRoute
+  constructor ( private store: Store<World>
+              , private route: ActivatedRoute
               ) {
     const table$: Observable<Table> = store.select('table')
 
@@ -69,28 +68,24 @@ class GameContainer implements OnInit {
     this.shouldAnimate$ = store.select('shouldAnimate')
     this.visibleLayers$ = store.select('visibleLayers')
 
-    store.subscribe(x => console.log(x))
+    // store.subscribe(x => console.log(x))
   }
 
   ngOnInit (): void {
-    // !!!
-    // Extract a layout name from a route.
     this.route.params.subscribe((params: Params) => {
       this.store.dispatch(act.initGame(params['name']))
     })
-    // this.store.dispatch(act.startGame('turtle'))
 
-    // !!! Save game status? Local storage?
+    // !!! Save game status?
     // Save board and timeline state.
     // Seems to be sufficient to listen for timeline changes and nothing else.
-    this.timeline$
-      .distinctUntilChanged()
-      .subscribe(x => {
-        console.log('Save board and timeline state.')
-      })
+    // this.timeline$
+    //   .distinctUntilChanged()
+    //   .subscribe(x => {
+    //     console.log('Save board and timeline state.')
+    //   })
   }
 
-  // !!!
   onStartOver (layout: LayoutData): void {
     this.store.dispatch(act.startOver(layout))
   }

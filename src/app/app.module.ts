@@ -14,7 +14,7 @@ import CoreModule         from './core/core.module'
 import reducers           from './world/reducers'
 import RenderEffects      from './world/effects/render-effects.service'
 import SoundEffects       from './world/effects/sound-effects.service'
-import EditorEffects      from './world/effects/editor-effects.service'
+import LayoutEffects      from './world/effects/layout-effects.service'
 
 @NgModule(
   { declarations: [ AppComponent
@@ -30,7 +30,7 @@ import EditorEffects      from './world/effects/editor-effects.service'
                   , StoreModule.provideStore(reducers)
                   , EffectsModule.run(RenderEffects)
                   , EffectsModule.run(SoundEffects)
-                  , EffectsModule.run(EditorEffects)
+                  , EffectsModule.run(LayoutEffects)
                   ]
   , bootstrap:    [ AppComponent ]
   }

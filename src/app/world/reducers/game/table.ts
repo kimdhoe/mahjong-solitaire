@@ -20,7 +20,6 @@ import { isSameTile
 import { MARK_TILE
        , SET_BOARD
        , SET_BOARDS
-       , SET_LAYOUTS
        , SHUFFLE
        , SHUFFLE_AT_ONCE
        , START_GAME
@@ -105,26 +104,10 @@ const tableOnTimeTravel = (table: Table, payload: any): Table => {
 
 const turtleData: LayoutData = makeLayoutData('turtle', TURTLE)
 
-// !!! remove?
-// Given a table and a payload of SET_LAYOUTS action, produces a new table.
-// const tableOnSetLayouts = (table: Table, payload: any): Table => {
-//   const { layouts } = payload
-//   const saved: LayoutData[] = Object.keys(layouts).map(
-//                                 name => makeLayoutData(name, layouts[name])
-//                               )
-//   const newLayouts: LayoutData[] = [ turtleData, ...saved ]
-//
-//   return makeTable( newLayout
-//                   , table.baseBoard
-//                   , table.board
-//                   , table.marked
-//                   , table.timeline
-//                   )
-// }
-
 // Table reducer.
 const table = (state: Table = makeTable(), action: Action): Table => {
   switch (action.type) {
+
     case MARK_TILE:
       return tableOnMarkTile(state, action.payload)
 
@@ -140,6 +123,7 @@ const table = (state: Table = makeTable(), action: Action): Table => {
     case SHUFFLE_AT_ONCE:
       return tableOnShuffleAtOnce(state)
 
+    // !!! remove?
     case SET_BOARD:   // Do not change the base board:
       return makeTable(state.layout, state.baseBoard, action.payload.board)
 

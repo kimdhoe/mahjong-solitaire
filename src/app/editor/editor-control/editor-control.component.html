@@ -2,7 +2,7 @@
   <div class="meta">
     <div>
       <p class="label"><span>EDITOR MODE</span></p>
-      <p class="metadata"><strong>{{isAdding ? 'Adding' : 'Removing'}}</strong></p>
+      <p class="metadata"><strong>{{isAdding ? 'Add' : 'Remove'}}</strong></p>
     </div>
 
     <div>
@@ -36,7 +36,8 @@
         (reset!)
       </button>
 
-      <button class="btn"
+      <button class="btn saveBtn"
+        [class.hasChanged]="hasChanged"
         (click)="onSaveClick()"
       >
         (save!)

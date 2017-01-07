@@ -11,14 +11,15 @@ import TURTLE from '../world/constants/templates/turtle'
 
 @Injectable()
 class LayoutService {
-  // Effect: Retrives saved layout-data from a local storage.
+  // Returns all layout data.
+  // effect: Reads from the local storage.
   getLayouts (): { [name: string]: Template } {
     return JSON.parse(localStorage.getItem('templates')) || {}
   }
 
-  // Effect: Given a layout name, retrives a saved layout-data.
-  //         If data with the given name doesn't exist, returns the default
-  //         layout data.
+  // Given a layout name, returns a correspoinding layout-data. If data with
+  // the given name doesn't exist, returns the default layout data.
+  // effect: Reads from the local storage.
   getLayout (name: string): LayoutData {
     const layouts = this.getLayouts()
 
@@ -28,12 +29,24 @@ class LayoutService {
     return makeLayoutData('turtle', TURTLE)
   }
 
-  // Effect: Given a name and an editor-board, serializes and saves as a new
+  // effect: Given a name and an editor-board, serializes and saves as a new
   //         layout data. (if possible)
   saveLayout (name: string, editor: EditorBoard): void {
     const templates = this.getLayouts()
     templates[name] = serializeEditor(editor)
     localStorage.setItem('templates', JSON.stringify(templates))
+  }
+
+  // effect: Deletes a layout with a given name from the storage.
+  deleteLayout (name: string): void {
+    const templates = this.getLayouts()
+
+    delete templates[name]
+
+    if (Object.keys(templates).length)
+      localStorage.setItem('templates', JSON.stringify(templates))
+    else
+      localStorage.removeItem('templates')
   }
 }
 

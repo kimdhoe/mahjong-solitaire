@@ -1,5 +1,7 @@
 import { Component
+       , EventEmitter
        , Input
+       , Output
        } from '@angular/core'
 
 @Component(
@@ -10,6 +12,13 @@ import { Component
 )
 class HomeComponent {
   @Input() layoutNames: string[]
+
+  @Output() deleteLayout = new EventEmitter<string>()
+
+  onDeleteClick (name: string): void {
+    this.deleteLayout.emit(name)
+    console.log('foo')
+  }
 }
 
 export default HomeComponent

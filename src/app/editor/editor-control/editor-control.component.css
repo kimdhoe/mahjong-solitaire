@@ -59,3 +59,23 @@
 .btn:hover {
   text-decoration: underline;
 }
+
+.saveBtn::after {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+
+.hasChanged {
+  color: red;
+}
+
+.hasChanged::after {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+}

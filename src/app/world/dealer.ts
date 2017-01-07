@@ -16,7 +16,7 @@ import { Board
        , Tile
        , TileIndex
        , TileAddress
-       } from './model'
+       }           from './model'
 import { shuffle } from '../util'
 
 const TILE_PLACEHOLDER = makeTile('')

@@ -20,9 +20,11 @@ class EditorControlComponent {
 
   @Input() isAdding:      boolean
   @Input() numberOfAdded: number
+  @Input() hasChanged:    boolean
 
-  @Output() toggleMode = new EventEmitter()
-  @Output() saveLayout = new EventEmitter<string>()
+  @Output() toggleMode  = new EventEmitter()
+  @Output() resetEditor = new EventEmitter()
+  @Output() saveLayout  = new EventEmitter<string>()
 
   constructor (private id: IdService) {}
 
@@ -31,7 +33,7 @@ class EditorControlComponent {
   }
 
   onResetClick (): void {
-    console.log('Reset plz..')
+    this.resetEditor.emit()
   }
 
   onSaveClick (): void {
@@ -41,8 +43,6 @@ class EditorControlComponent {
       this.layoutName = this.id.generate()
       name = this.layoutName
     }
-
-    console.log('Save layout. NAME: ' + name)
 
     this.saveLayout.emit(this.layoutName)
   }

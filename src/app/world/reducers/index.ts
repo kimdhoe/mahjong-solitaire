@@ -4,6 +4,7 @@ import visibleLayers from './game/visibleLayers'
 import editor        from './editor/editor'
 import isAdding      from './editor/isAdding'
 import numberOfAdded from './editor/numberOfAdded'
+import hasChanged    from './editor/hasChanged'
 
 const reducers = { table
                  , shouldAnimate
@@ -11,6 +12,7 @@ const reducers = { table
                  , editor
                  , isAdding
                  , numberOfAdded
+                 , hasChanged
                  }
 
 export default reducers

@@ -19,9 +19,11 @@
           {{name === 'turtle' ? 'Turtle (classic)' : name}}
         </a>
         <button
+          class="LayoutList-button"
           *ngIf="name !== 'turtle'"
-          >
-          delete
+          (click)="onDeleteClick(name)"
+        >
+          (delete!)
         </button>
       </li>
     </ul>
@@ -32,8 +34,8 @@
 
     <p class="HowTo-contents">
       Remove a pair of identical tiles at a time. The goal of the game is to remove
-      as many tiles as possible. You can only select open tiles, which can be moved
-      either left or right without disturbing other tiles.
+      as many tiles as possible. You can only select open tiles, which are tiles
+      that can be moved either left or right without disturbing other ones.
     </p>
 
     <p class="HowTo-contents">

@@ -26,6 +26,12 @@ interface World { // [game] Represents the informations regarding tiles and
 
                   // [editor] Keeps track of the number of tiles added so far.
                 , numberOfAdded: number
+
+                  // [editor] Is there an unsaved change?
+                , hasChanged: boolean
+
+                  // [editor] Layout name
+                , layoutName: string
                 }
 
 interface Timeline { // A head of a timeline tree.
@@ -62,15 +68,11 @@ interface Table { // On time travel, a set of tiles will be removed from
                   // Marked (selected) tiles at the moment.
                 , marked:    Array<Tile>
 
-                  // A revision tree.
+                  // Revision tree.
                 , timeline:  Timeline
 
-                  // !!!
+                  // Selected layout.
                 , layout:    LayoutData
-
-                  // !!! remove?
-                  // Available layouts (Turtle + saved layouts)
-                // , layouts:   Array<LayoutData>
                 }
 
 interface LayoutData { name:     string

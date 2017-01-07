@@ -14,13 +14,12 @@ import 'rxjs/add/operator/take'
 import { START_GAME
        , SHUFFLE
        , START_OVER
-       }                from '../constants/action-names'
-import { setBoard
-       , setBoards
+       }             from '../constants/action-names'
+import { setBoards
        , removeLayer
        , renderLayer
-       }                from '../actions/game'
-import DealerService    from '../../core/dealer.service'
+       }             from '../actions/game'
+import DealerService from '../../core/dealer.service'
 
 @Injectable()
 class RenderEffects {
@@ -49,7 +48,7 @@ class RenderEffects {
               Observable.timer(0, 200)
                 .take(5)
                 .map(removeLayer)
-            , promise.then(setBoard)
+            , promise.then(setBoards)
             , Observable.interval(300)
                 .take(5)
                 .map(renderLayer)
