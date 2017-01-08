@@ -119,10 +119,14 @@ const isTopOpen = ([ l, r, t ]: TileAddress, board: Board): boolean => {
   const upperLayer = board[l + 1]
 
   return !upperLayer
-  || (  !isTilePresentInLayer(r, t, upperLayer)
+  || (  !isTilePresentInLayer(r,   t-1, upperLayer)
+     && !isTilePresentInLayer(r,   t,   upperLayer)
+     && !isTilePresentInLayer(r,   t+1, upperLayer)
      && !isTilePresentInLayer(r-1, t-1, upperLayer)
-     && !isTilePresentInLayer(r+1, t-1, upperLayer)
+     && !isTilePresentInLayer(r-1, t,   upperLayer)
      && !isTilePresentInLayer(r-1, t+1, upperLayer)
+     && !isTilePresentInLayer(r+1, t-1, upperLayer)
+     && !isTilePresentInLayer(r+1, t,   upperLayer)
      && !isTilePresentInLayer(r+1, t+1, upperLayer)
      )
 }
