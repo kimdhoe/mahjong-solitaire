@@ -104,7 +104,9 @@ class GameRow {
 
   // Calculates z-index.
   zIndexForTile (tile: Tile): number {
-    return tile.address[0] * 100 + tile.address[2] * 10
+    return tile.address[0] * 1000
+         + tile.address[1] * 100
+         + tile.address[2] * 100
   }
 }
 

@@ -25,6 +25,7 @@ class GameTile {
   @Input() shouldAnimate
   @Input() tile:   Tile
   @Input() marked: Tile[]
+  @Input() zIndex: number
 
   @Output() mark = new EventEmitter()
 

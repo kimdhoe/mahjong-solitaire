@@ -3,6 +3,13 @@
 }
 
 .Tile {
+  position: absolute;
+}
+
+.Tile-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-right: 0;
@@ -19,6 +26,10 @@
   box-sizing: border-box;
   transform-origin: top left;
   transition: background-color 80ms ease;
+}
+
+.isMarked .Tile-face {
+  background-color: #ffcc33;
 }
 
 .isMarked .Tile-eastSide {
@@ -51,8 +62,4 @@
 
 .isOpen:hover {
   cursor: pointer;
-}
-
-.isMarked {
-  background-color: #ffcc33;
 }
